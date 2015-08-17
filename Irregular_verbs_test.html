@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title> Irregular verbs test </title>
+
+	<script language="Javascript">
+	
+		// Present. Past Simple, Past Participle, 3rd Person, Present Participle
+		var verbs = [
+            [0, null,                   'Present Simple', 	'Past Simple', 		'Past Participle', 		'3rd Person', 	'Present Participle'	],
+            [4, 'Aterrisar', 			'Alight', 'Alit/Alighted', 'Alit/Alighted', 'Alights', 'Alighting'],
+            [3, 'Surgir', 				'Arise', 'Arose', 'Arisen', 'Arises', 'Arising'],
+            [3, 'Despertar', 			'Awake', 'Awoke', 'Awoken', 'Awakes', 'Awaking'],
+            [1, 'Ser/Estar',			'Be', 'Was/Were', 'Been', 'Is', 'Being'],
+            [3, 'Soportar',				'Bear', 'Bore', 'Born/Borne', 'Bears', 'Bearing'],
+            [2, 'Derrotar',				'Beat', 'Beat', 'Beaten', 'Beats', 'Beating'],
+            [1, 'Convertir-se',			'Become', 'Became', 'Become', 'Becomes', 'Becoming'],
+            [1, 'Començar',				'Begin', 'Began', 'Begun', 'Begins', 'Beginning'],
+            [4, 'Observar/Advertir',	'Behold', 'Beheld', 'Beheld', 'Beholds', 'Beholding'],
+            [3, 'Doblegar',				'Bend', 'Bent', 'Bent', 'Bends', 'Bending'],
+            [2, 'Apostar',				'Bet', 'Bet', 'Bet', 'Bets', 'Betting'],
+            [4, 'Oferir/"Pujar"',		'Bid', 'Bade', 'Bidden', 'Bids', 'Bidding'],
+            [3, 'Lligar',				'Bind', 'Bound', 'Bound', 'Binds', 'Binding'],
+            [2, 'Mosegar',				'Bite', 'Bit', 'Bitten', 'Bites', 'Biting'],
+            [3, 'Sangrar',				'Bleed', 'Bled', 'Bled', 'Bleeds', 'Bleeding'],
+            [2, 'Bufar',				'Blow', 'Blew', 'Blown', 'Blows', 'Blowing'],
+            [1, 'Trencar',				'Break', 'Broke', 'Broken', 'Breaks', 'Breaking'],
+            [3, 'Criar',				'Breed', 'Bred', 'Bred', 'Breeds', 'Breeding'],
+            [1, 'Portar',				'Bring', 'Brought', 'Brought', 'Brings', 'Bringing'],
+            [1, 'Construir',			'Build', 'Built', 'Built', 'Builds', 'Building'],
+            [2, 'Cremar',				'Burn', 'Burnt/Burned', 'Burnt/Burned', 'Burns', 'Burning'],
+            [3, 'Explotar',				'Burst', 'Burst', 'Burst', 'Bursts', 'Bursting'],
+            [4, 'Reventar',				'Bust', 'Bust', 'Bust', 'Busts', 'Busting'],
+            [1, 'Comprar',				'Buy', 'Bought', 'Bought', 'Buys', 'Buying'],
+            [1, 'Poder',				'Can', 'Could', 'Been able', 'Can', ''],
+            [3, 'Emetre',				'Cast', 'Cast', 'Cast', 'Casts', 'Casting'],
+            [2, 'Agafar',				'Catch', 'Caught', 'Caught', 'Catches', 'Catching'],
+            [1, 'Escollir',				'Choose', 'Chose', 'Chosen', 'Chooses', 'Choosing'],
+            [3, 'Aplaudir',				'Clap', 'Clapped/Clapt', 'Clapped/Clapt', 'Claps', 'Clapping'],
+            [4, 'Adherir-se',			'Cling', 'Clung', 'Clung', 'Clings', 'Clinging'],
+            [4, 'Vestir-se',			'Clothe', 'Clad/Clothed', 'Clad/Clothed', 'Clothes', 'Clothing'],
+            [1, 'Venir',				'Come', 'Came', 'Come', 'Comes', 'Coming'],
+            [2, 'Costar',				'Cost', 'Cost', 'Cost', 'Costs', 'Costing'],
+            [3, 'Arrossegar-se',		'Creep', 'Crept', 'Crept', 'Creeps', 'Creeping'],
+            [1, 'Tallar',				'Cut', 'Cut', 'Cut', 'Cuts', 'Cutting'],
+            [3, 'Atrevir-se',			'Dare', 'Dared/Durst', 'Dared', 'Dares', 'Daring'],
+            [2, 'Distribuir',			'Deal', 'Dealt', 'Dealt', 'Deals', 'Dealing'],
+            [3, 'Excavar',				'Dig', 'Dug', 'Dug', 'Digs', 'Digging'],
+            [2, 'Bucejar',				'Dive', 'Dived/Dove', 'Dived', 'Dives', 'Diving'],
+            [1, 'Fer',					'Do', 'Did', 'Done', 'Does', 'Doing'],
+            [2, 'Dibuixar',				'Draw', 'Drew', 'Drawn', 'Draws', 'Drawing'],
+            [2, 'Somiar',				'Dream', 'Dreamt/Dreamed', 'Dreamt/Dreamed', 'Dreams', 'Dreaming'],
+            [1, 'Beure',				'Drink', 'Drank', 'Drunk', 'Drinks', 'Drinking'],
+            [2, 'Conduir',				'Drive', 'Drove', 'Driven', 'Drives', 'Driving'],
+            [4, 'Habitar',				'Dwell', 'Dwelt', 'Dwelt', 'Dwells', 'Dwelling'],
+            [1, 'Menjar',				'Eat', 'Ate', 'Eaten', 'Eats', 'Eating'],
+            [2, 'Caure',				'Fall', 'Fell', 'Fallen', 'Falls', 'Falling'],
+            [2, 'Alimentar',			'Feed', 'Fed', 'Fed', 'Feeds', 'Feeding'],
+            [1, 'Notar',				'Feel', 'Felt', 'Felt', 'Feels', 'Feeling'],
+            [2, 'Lluitar',				'Fight', 'Fought', 'Fought', 'Fights', 'Fighting'],
+            [1, 'Buscar',				'Find', 'Found', 'Found', 'Finds', 'Finding'],
+            [2, 'Ajustar',				'Fit', 'Fit/Fitted', 'Fit/Fitted', 'Fits', 'Fitting'],
+            [4, 'Escapar-se',			'Flee', 'Fled', 'Fled', 'Flees', 'Fleeing'],
+            [4, 'Llençar/"arrojar"',	'Fling', 'Flung', 'Flung', 'Flings', 'Flinging'],
+            [2, 'Volar',				'Fly', 'Flew', 'Flown', 'Flies', 'Flying'],
+            [2, 'Prohibir',				'Forbid', 'Forbade/Forbad', 'Forbidden', 'Forbids', 'Forbidding'],
+            [4, 'Preveure',				'Foresee', 'Foresaw', 'Foreseen', 'Foresees', 'Foreseeing'],
+            [4, 'Pronosticar',			'Foretell', 'Foretold', 'Foretold', 'Foretells', 'Foretelling'],
+            [1, 'Oblidar',				'Forget', 'Forgot', 'Forgotten', 'Forgets', 'Foregetting'],
+            [2, 'Perdonar',				'Forgive', 'Forgave', 'Forgiven', 'Forgives', 'Forgiving'],
+            [3, 'Abandonar',			'Forsake', 'Forsook', 'Forsaken', 'Forsakes', 'Forsaking'],
+            [3, 'Congelar',				'Freeze', 'Froze', 'Frozen', 'Freezes', 'Freezing'],
+            [1, 'Obtenir/Prendre',		'Get', 'Got', 'Got/Gotten', 'Gets', 'Getting'],
+            [1, 'Donar',				'Give', 'Gave', 'Given', 'Gives', 'Giving'],
+            [1, 'Anar',					'Go', 'Went', 'Gone/Been', 'Goes', 'Going'],
+            [3, 'Moldre',				'Grind', 'Ground', 'Ground', 'Grinds', 'Grinding'],
+            [2, 'Crèixer',				'Grow', 'Grew', 'Grown', 'Grows', 'Growing'],
+            [3, 'Penjar',				'Hang', 'Hung/Hanged', 'Hung/Hanged', 'Hangs', 'Hanging'],
+            [1, 'Tenir',				'Have', 'Had', 'Had', 'Has', 'Having'],
+            [1, 'Escoltar',				'Hear', 'Heard', 'Heard', 'Hears', 'Hearing'],
+            [2, 'Ocultar',				'Hide', 'Hid', 'Hidden', 'Hides', 'Hiding'],
+            [2, 'Colpejar',				'Hit', 'Hit', 'Hit', 'Hits', 'Hitting'],
+            [1, 'Sostenir',				'Hold', 'Held', 'Held', 'Holds', 'Holding'],
+            [2, 'Ferir',				'Hurt', 'Hurt', 'Hurt', 'Hurts', 'Hurting'],
+            [4, 'Incrustar',			'Inlay', 'Inlaid', 'Inlaid', 'Inlays', 'Inlaying'],
+            [4, 'Entrar',				'Input', 'Input/Inputted', 'Input/Inputted', 'Inputs', 'Inputting'],
+            [1, 'Mantenir/Guardar',		'Keep', 'Kept', 'Kept', 'Keeps', 'Keeping'],
+            [4, 'Agenollar-se',			'Kneel', 'Knelt/Kneeled', 'Knelt/Kneeled', 'Kneels', 'Kneeling'],
+            [4, 'Teixir',				'Knit', 'Knit/Knitted', 'Knit/Knitted', 'Knits', 'Knitting'],
+            [1, 'Saber',				'Know', 'Knew', 'Known', 'Knows', 'Knowing'],
+            [2, 'Col·locar',			'Lay', 'Laid', 'Laid', 'Lays', 'laying'],
+            [3, 'Dirigir',				'Lead', 'Led', 'Led', 'Leads', 'Leading'],
+            [4, 'Apoyar',				'Lean', 'Leant/Leaned', 'Leant/Leaned', 'Leans', 'Leaning'],
+            [4, 'Brincar',				'Leap', 'Leapt/Leaped', 'Leapt/Leaped', 'Leaps', 'Leaping'],
+            [2, 'Aprendre',				'Learn', 'Learnt/Learned', 'Learnt/Learned', 'Learns', 'Learning'],
+            [2, 'Deixar/Marxar',		'Leave', 'Left', 'Left', 'Leaves', 'Leaving'],
+            [2, 'Prestar',				'Lend', 'Lent', 'Lent', 'Lends', 'Lending'],
+            [2, 'Permetre',				'Let', 'Let', 'Let', 'Lets', 'Letting'],
+            [2, 'Mentir/Ajeure`s',		'Lie', 'Lay', 'Lain', 'Lies', 'Lying'],
+            [3, 'Il·luminar',			'Light', 'Lit', 'Lit', 'Lights', 'Lighting'],
+            [1, 'Perdre',				'Lose', 'Lost', 'Lost', 'Loses', 'Losing'],
+            [1, 'Fer/Muntar',			'Make', 'Made', 'Made', 'Makes', 'Making'],
+            [2, 'Significar',			'Mean', 'Meant', 'Meant', 'Means', 'Meaning'],
+            [1, 'Trobar-se',			'Meet', 'Met', 'Met', 'Meets', 'Meeting'],
+            [5, 'Fondre',				'Melt', 'Melted', 'Molten/Melted', 'Melts', 'Melting'],
+            [5, 'Enganyar',				'Mislead', 'Misled', 'Misled', 'Misleads', 'Misleading'],
+            [3, 'Confondre',			'Mistake', 'Mistook', 'Mistaken', 'Mistake', 'Mistaking'],
+            [5, 'Malentendres',			'Misunderstand', 'Misunderstood', 'Misunderstood', 'Misunderstands', 'Misunderstanding'],
+            [3, 'Segar',				'Mow', 'Mowed', 'Mown', 'Mows', 'Mowing'],
+            [5, 'Escoltar casualment',	'Overhear', 'Overheard', 'Overheard', 'Overhears', 'Overhearing'],
+            [4, 'Adelantar',			'Overtake', 'Overtook', 'Overtaken', 'Overtakes', 'Overtaking'],
+            [1, 'Pagar',				'Pay', 'Paid', 'Paid', 'Pays', 'Paying'],
+            [4, 'Programar',			'Preset', 'Preset', 'Preset', 'Prests', 'Presetting'],
+            [3, 'Demostrar',			'Prove', 'Proved', 'Proven/Proved', 'Proves', 'Proving'],
+            [1, 'Posar',				'Put', 'Put', 'Put', 'Puts', 'Putting'],
+            [3, 'Deixar',				'Quit', 'Quit', 'Quit', 'Quits', 'Quitting'],
+            [1, 'Llegir',				'Read', 'Read', 'Read', 'Reads', 'Reading'],
+            [3, 'Eliminar',				'Rid', 'Rid/Ridded', 'Rid/Ridded', 'Rids', 'Ridding'],
+            [2, 'Montar/Cabalgar',		'Ride', 'Rode', 'Ridden', 'Rides', 'Riding'],
+            [3, 'Sonar',				'Ring', 'Rang', 'Rung', 'Rings', 'Ringing'],
+            [2, 'Aixecar',				'Rise', 'Rose', 'Risen', 'Rises', 'Rising'],
+            [1, 'Còrrer',				'Run', 'Ran', 'Run', 'Runs', 'Running'],
+            [3, 'Serrar',				'Saw', 'Sawed', 'Sawn/Sawed', 'Saws', 'Sawing'],
+            [1, 'Dir',					'Say', 'Said', 'Said', 'Says', 'Saying'],
+            [1, 'Veure',				'See', 'Saw', 'Seen', 'Sees', 'Seeing'],
+            [2, 'Seguir',				'Seek', 'Sought', 'Sought', 'Seeks', 'Seeking'],
+            [2, 'Vendre',				'Sell', 'Sold', 'Sold', 'Sells', 'Selling'],
+            [2, 'Enviar',				'Send', 'Sent', 'Sent', 'Sends', 'Sending'],
+            [2, 'Establir',				'Set', 'Set', 'Set', 'Sets', 'Setting'],
+            [3, 'Cosir',				'Sew', 'Sewed', 'Sewn/Sewed', 'Sews', 'Sewing'],
+            [2, 'Sacsejar',				'Shake', 'Shook', 'Shaken', 'Shakes', 'Shaking'],
+            [3, 'Afeitar',				'Shave', 'Shaved', 'Shaven/Shaved', 'Shaves', 'Shaving'],
+            [4, 'Esquilar',				'Shear', 'Shore/Sheared', 'Shorn/Sheared', 'Shears', 'Shearing'],
+            [2, 'Brillar',				'Shine', 'Shone', 'Shone', 'Shines', 'Shining'],
+            [3, 'Disparar',				'Shoot', 'Shot', 'Shot', 'Shoots', 'Shooting'],
+            [2, 'Mostrar',				'Show', 'Showed', 'Shown', 'Shows', 'Showing'],
+            [3, 'Encongir',				'Shrink', 'Shrank', 'Shrunk', 'Shrinks', 'Shrinking'],
+            [3, 'Tancar',				'Shut', 'Shut', 'Shut', 'Shuts', 'Shutting'],
+            [1, 'Cantar',				'Sing', 'Sang', 'Sung', 'Sings', 'Singing'],
+            [3, 'Enfonsar-se',			'Sink', 'Sank', 'Sunk', 'Sinks', 'Sinking'],
+            [1, 'Seure',				'Sit', 'Sat', 'Sat', 'Sits', 'Sitting'],
+            [4, 'Assassinar',			'Slay', 'Slew', 'Slain', 'Slays', 'Slaying'],
+            [1, 'Dormir',				'Sleep', 'Slept', 'Slept', 'Sleeps', 'Sleeping'],
+            [3, 'Lliscar',				'Slide', 'Slid', 'Slid/Slidden', 'Slides', 'Sliding'],
+            [4, 'Escaquejar-se',		'Slink', 'Slunk', 'Slunk', 'Slinks', 'Slinking'],
+            [4, 'Tallar/"Rajar"',		'Slit', 'Slit', 'Slit', 'Slits', 'Slitting'],
+            [2, 'Olorar',				'Smell', 'Smelt/Smelled', 'Smelt/Smelled', 'Smells', 'Smelling'],
+            [3, 'Birlar',				'Sneak', 'Sneaked/Snuck', 'Sneaked/Snuck', 'Sneaks', 'Sneaking'],
+            [4, 'Endivinar',			'Soothsay', 'Soothsaid', 'Soothsaid', 'Soothsays', 'Soothsaying'],
+            [3, 'Sembrar',				'Sow', 'Sowed', 'Sown', 'Sows', 'Sowing'],
+            [1, 'Parlar',				'Speak', 'Spoke', 'Spoken', 'Speaks', 'Speaking'],
+            [3, 'Accelerar',			'Speed', 'Sped/Speeded', 'Sped/Speeded', 'Speeds', 'Speeding'],
+            [3, 'Deletrejar',			'Spell', 'Spelt/Spelled', 'Spelt/Spelled', 'Spells', 'Spelling'],
+            [2, 'Gastar',				'Spend', 'Spent', 'Spent', 'Spends', 'Spending'],
+            [5, 'Vertir/Derramar',		'Spill', 'Spilt/Spilled', 'Spilt/Spilled', 'Spills', 'Spilling'],
+            [3, 'Girar/Rotar',			'Spin', 'Span/Spun', 'Spun', 'Spins', 'Spinning'],
+            [4, 'Escupir',				'Spit', 'Spat/Spit', 'Spat/Spit', 'Spits', 'Spitting'],
+            [3, 'Dividir',				'Split', 'Split', 'Split', 'Splits', 'Splitting'],
+            [4, 'Espatllar',			'Spoil', 'Spoilt/Spoiled', 'Spoilt/Spoiled', 'Spoils', 'Spoiling'],
+            [3, 'Difondre/Propagar',	'Spread', 'Spread', 'Spread', 'Spreads', 'Spreading'],
+            [4, 'Brotar',				'Spring', 'Sprang', 'Sprung', 'Springs', 'Springing'],
+            [2, 'Estar dret',			'Stand', 'Stood', 'Stood', 'Stands', 'Standing'],
+            [2, 'Robar',				'Steal', 'Stole', 'Stolen', 'Steals', 'Stealing'],
+            [4, 'Pegar',				'Stick', 'Stuck', 'Stuck', 'Sticks', 'Sticking'],
+            [3, 'Picar/Punxar',			'Sting', 'Stung', 'Stung', 'Stings', 'Stinging'],
+            [4, 'Fer pudor',			'Stink', 'Stank', 'Stunk', 'Stinks', 'Stinking'],
+            [3, 'Colpejar',				'Strike', 'Struck', 'Struck/Stricken', 'Strikes', 'Striking'],
+            [4, 'Encordar',				'String', 'Strung', 'Strung', 'Strings', 'Stringing'],
+            [4, 'Despullar-se',			'Strip', 'Stript/Stripped', 'Stript/Stripped', 'Strips', 'Stripping'],
+            [5, 'Esforçar-se',			'Strive', 'Strove', 'Striven', 'Strives', 'Striving'],
+            [3, 'Jurar',				'Swear', 'Swore', 'Sworn', 'Swears', 'Swearing'],
+            [4, 'Suar',					'Sweat', 'Sweat/Sweated', 'Sweat/Sweated', 'Sweats', 'Sweating'],
+            [4, 'Escombrar',			'Sweep', 'Swept/Sweeped', 'Swept/Sweeped', 'Sweeps', 'Sweeping'],
+            [4, 'Inflar',				'Swell', 'Swelled', 'Swollen', 'Swells', 'Swelling'],
+            [1, 'Nedar',				'Swim', 'Swam', 'Swum', 'Swims', 'Swimming'],
+            [4, 'Columpliar-se',		'Swing', 'Swung', 'Swung', 'Swings', 'Swinging'],
+            [1, 'Emportar',				'Take', 'Took', 'Taken', 'Takes', 'Taking'],
+            [1, 'Ensenyar',				'Teach', 'Taught', 'Taught', 'Teaches', 'Teaching'],
+            [4, 'Arrencar',				'Tear', 'Tore', 'Torn', 'Tears', 'Tearing'],
+            [1, 'Dir',					'Tell', 'Told', 'Told', 'Tells', 'Telling'],
+            [1, 'Pensar',				'Think', 'Thought', 'Thought', 'Thinks', 'Thinking'],
+            [4, 'Prosperar',			'Thrive', 'Throve/Thrived', 'Thriven/Thrived', 'Thrives', 'Thriving'],
+            [2, 'Llençar',				'Throw', 'Threw', 'Thrown', 'Throws', 'Throwing'],
+            [4, 'Empenyer',				'Thrust', 'Thrust', 'Thrust', 'Thrusts', 'Thrusting'],
+            [3, 'Trepitjar',			'Tread', 'Trod', 'Trodden', 'Treads', 'Treading'],
+            [4, 'Sometre`s',			'Undergo', 'Underwent', 'Undergone', 'Undergoes', 'Undergoing'],
+            [1, 'Entendre',				'Understand', 'Understood', 'Understood', 'Understands', 'Understanding'],
+            [4, 'Emprendre',			'Undertake', 'Undertook', 'Undertaken', 'Undertakes', 'Undertaking'],
+            [4, 'Alterar',				'Upset', 'Upset', 'Upset', 'Upsets', 'Upsetting'],
+            [2, 'Despertar',			'Wake', 'Woke', 'Woken', 'Wakes', 'Waking'],
+            [2, 'Vestir/Posar-se roba',	'Wear', 'Wore', 'Worn', 'Wears', 'Wearing'],
+            [3, 'Teixir',				'Weave', 'Wove', 'Woven', 'Weaves', 'Weaving'],
+            [4, 'Plorar',				'Weep', 'Wept', 'Wept', 'Weeps', 'Weeping'],
+            [1, 'Guanyar',				'Win', 'Won', 'Won', 'Wins', 'Winning'],
+            [4, 'Enrotllar',			'Wind', 'Wound', 'Wound', 'Winds', 'Winding'],
+            [4, 'Retirar',				'Withdraw', 'Withdrew', 'Withdrawn', 'Withdraws', 'Withdrawing'],
+            [4, 'Retenir',				'Withhold', 'Withheld', 'Withheld', 'Withholds', 'Withholding'],
+            [4, 'Resistir',				'Withstand', 'Withstood', 'Withstood', 'Withstands', 'Withstanding'],
+            [3, 'Escurrir',				'Wring', 'Wrung', 'Wrung', 'Wrings', 'Wringing'],
+            [1, 'Escriure',				'Write', 'Wrote', 'Written', 'Writes', 'Writing']
+		];
+	
+	
+		window.onload = function() { iniciar(); }
+		
+		function iniciar() {
+			
+			// alert (verbs.length);
+			
+			// Generar taula dinàmicament
+			var fila;
+			var t, seq = 0;
+			
+			// Crear cada columna segons el nivell
+			for (t = 1; t < verbs.length; ++t) if (verbs[t][0] == 1) crear_fila(t, ++seq, 'llista_verbs1');
+			for (t = 1; t < verbs.length; ++t) if (verbs[t][0] == 2) crear_fila(t, ++seq, 'llista_verbs2');
+			for (t = 1; t < verbs.length; ++t) if (verbs[t][0] == 3) crear_fila(t, ++seq, 'llista_verbs3');
+			for (t = 1; t < verbs.length; ++t) if (verbs[t][0] == 4) crear_fila(t, ++seq, 'llista_verbs4');
+			for (t = 1; t < verbs.length; ++t) if (verbs[t][0] == 5) crear_fila(t, ++seq, 'llista_verbs5');
+			
+			document.getElementsByTagName('input')[0].focus();
+		}
+		
+		function crear_fila(num_verb, seq, nom_tbody) {
+		
+			var color;		
+			if (seq % 2 == 1) 	color = '#FFFFFF'; 	// Pijama
+			else				color = '#F8EFB8';
+
+			var tBody = document.getElementById(nom_tbody); 
+			var newTR = tBody.insertRow(tBody.rows.length);
+			newTR.className = 'fila_llista';
+			newTR.style.backgroundColor = color;
+			
+			var newTD = newTR.insertCell(0); 
+			newTD.innerHTML = verbs[num_verb][2];
+			newTD.className = 'cela_llista';
+			newTD.style.textAlign = 'right';
+			newTD.style.paddingRight = '15px';
+			
+			newTD = newTR.insertCell(1);  newTD.className = 'cela_llista';
+			newTD.innerHTML = '<input type="text" onkeyup="comprovar(this, ' + num_verb + ', 3);" />';
+			
+			newTD = newTR.insertCell(2);  newTD.className = 'cela_llista';
+			newTD.innerHTML = '<input type="text" onkeyup="comprovar(this, ' + num_verb + ', 4);" onchange="verb_seguent(this);" />';
+			
+			newTD = newTR.insertCell(3);  
+			newTD.className = 'cela_llista';
+			newTD.innerHTML = '<button onclick="ajuda(' + num_verb + ');" '
+							+ '			  style="height:16px; font:normal normal normal 8px Verdana;">?</button>';
+				
+		}
+		
+		function verb_seguent(obj) {
+			// Si els 2 son correctes, saltar el focus del boto ajuda
+			if (obj.className != 'classe_error'
+				&&
+				obj.parentNode.previousSibling.firstChild.className != 'classe_error'
+				) {
+				obj.parentNode.parentNode.nextSibling.firstChild.nextSibling.firstChild.focus();
+
+			}
+			
+		}
+
+		
+		function comprovar(obj, fila, col) {
+			// alert (verbs[fila][col] + ', ' + obj.value);
+
+			
+			if (obj.value.toUpperCase() == verbs[fila][col].toUpperCase()
+				|| 
+				// Comprovar també si hi ha 2 possibles respostes correctes
+			    (verbs[fila][col].split('/').length > 1
+			     &&
+				 (obj.value.toUpperCase() == verbs[fila][col].split('/')[0].toUpperCase()
+				  ||
+				  obj.value.toUpperCase() == verbs[fila][col].split('/')[1].toUpperCase()
+				 )
+			    )
+			   ) {	
+				obj.className = "classe_ok";		// OK
+			} else {
+				if (obj.value == '') {
+					obj.className = "classe_buit";	// Clear
+				} else {
+					obj.className = "classe_error";	// Error
+				}
+			}
+		}
+		
+		function ajuda(num) {
+			alert (verbs[num][2] + ' - ' + verbs[num][3] + ' - ' + verbs[num][4] + ' -> (' + verbs[num][1] + ')');
+		}
+	
+	</script>
+
+	<style>
+	
+		html,body,input,select{
+			font:normal normal normal 10px/10px Verdana;
+		}
+		
+		
+		table { border-collapse: collapse; }
+	
+		.fila_llista { height:10px; }
+		.cela_llista { height:10px; border: 0px solid black; padding: 1px; }
+		
+		.classe_buit	{ background-color: white; }
+		.classe_ok 	 	{ background-color: #33FF33; }
+		.classe_error 	{ background-color: #FF3333; }
+		
+		input { height: 10px; }
+		
+	</style>	
+	
+	
+</head>
+
+
+<body>
+
+	<h3>Irregular verb test</h3>
+
+    <table>
+        <tr style="vertical-align: text-top;">
+            <td style="border-style: none;">
+            	<table style="margin: 10px;" >
+            		<thead>
+            			<tr style="font-weight: bold; paddin: 3px;">
+            				<td style="padding-right: 15px;">Pres. simple</td>
+            				<td>Past simple</td>
+            				<td>Past participle</td>
+            				<td style="text-align: center;" ></td>
+            			</tr>
+            		</thead>            		
+            		<tbody id="llista_verbs1"></tbody>            		
+            	</table>
+            </td>
+            <td style="border-style: none;">
+            	<table style="margin: 10px;" >
+            		<thead>
+            			<tr style="font-weight: bold; paddin: 3px;">
+            				<td>Pres. simple</td>
+            				<td>Past simple</td>
+            				<td>Past participle</td>
+            				<td style="text-align: center;" ></td>
+            			</tr>
+            		</thead>            		
+            		<tbody id="llista_verbs2"></tbody>            		
+            	</table>
+            </td>
+            <td style="border-style: none;">
+            	<table style="margin: 10px;" >
+            		<thead>
+            			<tr style="font-weight: bold; paddin: 3px;">
+            				<td>Pres. simple</td>
+            				<td>Past simple</td>
+            				<td>Past participle</td>
+            				<td style="text-align: center;" ></td>
+            			</tr>
+            		</thead>            		
+            		<tbody id="llista_verbs3"></tbody>            		
+            	</table>
+            </td> 
+			<td style="border-style: none;">
+            	<table style="margin: 10px;" >
+            		<thead>
+            			<tr style="font-weight: bold; paddin: 3px;">
+            				<td>Pres. simple</td>
+            				<td>Past simple</td>
+            				<td>Past participle</td>
+            				<td style="text-align: center;" ></td>
+            			</tr>
+            		</thead>            		
+            		<tbody id="llista_verbs4"></tbody>            		
+            	</table>
+            </td>
+			<td style="border-style: none;">
+            	<table style="margin: 10px;" >
+            		<thead>
+            			<tr style="font-weight: bold; paddin: 3px;">
+            				<td>Pres. simple</td>
+            				<td>Past simple</td>
+            				<td>Past participle</td>
+            				<td style="text-align: center;" ></td>
+            			</tr>
+            		</thead>            		
+            		<tbody id="llista_verbs5"></tbody>
+            	</table>
+            </td> 			
+        </tr>
+    </table>
+
+
+
+</body>
+</html>
+
+
