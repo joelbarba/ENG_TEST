@@ -4,8 +4,8 @@
 
 	<style>
 
-		body { 
-			font-family: Verdana; 
+		body {
+			font-family: Verdana;
 			background-color: #d0e4fe;
 		}
 
@@ -45,59 +45,20 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
 
+  	<script src="jquery-ui/jquery-ui.js"></script>
+
+	<script src="word_list.js"></script>
+
 	<script>
-	
+
 		// https://www.englishclub.com/vocabulary/phrasal-verbs-list.htm
 
-		var verbs = [
-			{verb: 'Find out', 				meaning: 'Descobrir' 	},
-			{verb: 'Get back', 				meaning: 'Tornar' 		},
-			{verb: 'Throw up', 				meaning: 'Vomitar' 		},
-			{verb: 'Hold on', 				meaning: 'Esperar una estona' },
-			{verb: 'Keep out', 				meaning: 'Mantenir allunyat' },
-			{verb: 'Blow up',				meaning: 'Explotar' },
-			{verb: 'Break down',			meaning: 'Espatllar-se' },
-			{verb: 'Break in',				meaning: 'Entrar a un edifici / interrompre' },
-			{verb: 'Break up',				meaning: 'Trencar relació amorosa' },
-			{verb: 'Break out',				meaning: 'Escapar' },
-			{verb: 'Call [something] off',	meaning: 'Cancelar' },
-			{verb: 'Catch up',				meaning: 'Atrapar o arribar al mateix punt' },
-			{verb: 'Check in',				meaning: 'Registrar l\'arribada' },
-			{verb: 'Cheer up',				meaning: 'Animar' },
-			{verb: 'Chip in',				meaning: 'Ajudar' },
-			{verb: 'Count on',				meaning: 'Dependre de' },
-			{verb: 'Cut back on',			meaning: 'Consumir menys' },
-			{verb: 'Do [something] over',	meaning: 'Repetir varies vegades' },
-			{verb: 'Dress up',				meaning: 'Vestir bé' },
-			{verb: 'Drop back',				meaning: 'Retrocedir posicions' },
-			{verb: 'Drop out',				meaning: 'Abandonar els estudis' },
-			{verb: 'Fall down',				meaning: 'Caure a terra' },
-			{verb: 'Fall out',				meaning: 'Caure fora' },
-			{verb: 'Fill up',				meaning: 'Omplir fins dalt' },
-			{verb: 'Get around',			meaning: 'Tenir mobilitat' },
-			{verb: 'Get away',				meaning: 'Marxar de vacances' },
-			{verb: 'Get [something] back',	meaning: 'Retornar alguna cosa' },
-			{verb: 'Get on',				meaning: 'Pujar a un vehicle' },
-			{verb: 'Get over',				meaning: 'Recuperar-se d una situació' },
-			{verb: 'Get up',				meaning: 'Aixecar-se' },
-			{verb: 'Give back',				meaning: 'Retornar quelcom prestat' },
-			{verb: 'Give in',				meaning: 'Acceptar/accedir, tot i no voler' },
-			{verb: 'Give [something] up',	meaning: 'Deixar un vici' },
-			{verb: 'Give up',				meaning: 'Rendir-se' },
-			{verb: 'Go after',				meaning: 'Perseguir algo o algú' },
-			{verb: 'Go ahead',				meaning: 'Endavant' },
-			{verb: 'Grow up',				meaning: 'Madurar' },
-			{verb: 'Hand [something] in',	meaning: 'Entregar quelcom' },
-			{verb: 'Hand [something] out',	meaning: 'Repartir quelcom' },
-			{verb: 'Hang in',				meaning: 'Ser possitiu' },
-			{verb: 'Hang on',				meaning: 'Esperar una estona' },
-			{verb: 'Hang up',				meaning: 'Penjar el telèfon' }
-		];
+
 
 		// var play_verbs =(JSON.parse(JSON.stringify(verbs)));
-		var play_verbs = $.extend(true, [], verbs);
+		var play_words = $.extend(true, [], words);
 
-		var num_pregunta;
+		var num_quest;
 		var resposta_correcta;
 		var resultats_erronis = [];
 		var total_punts;
@@ -106,7 +67,7 @@
 		var contador_timer;
 		var temps_partida;
 
-		
+
 
 
 		// Retorna un array (llista) sense l'objecte de la posició num
@@ -126,133 +87,209 @@
 				function() { $(this).removeClass('opcio_sel'); 	}  // mouseleave
 			);
 
-			$('#star_button').click(iniciar_partida);
-			
-			$('.opcio').click(marcar_resultat);
-			
-			// $('#star_button').click();
+			$('#start_button').click(iniciar_partida);
+
+			// $('#start_button').click();
 
 		});
 
-		
-		
+
+
 		function iniciar_partida() {
-			
+
 			$('body > div:first').show().next().hide().end().children().show();
 
-			// Reordenar llista verbs
-			var verbs_tmp = $.extend(true, [], verbs);
-			play_verbs = [];
+			// Reordenar llista play_words
+			var words_tmp = $.extend(true, [], words);
+			play_words = [];
 
-			while (verbs_tmp.length > 0) {
-				var num = Math.floor(Math.random() * verbs_tmp.length);
-				play_verbs.push(verbs_tmp[num]);
-				verbs_tmp = pop_array(verbs_tmp, num);
+			while (words_tmp.length > 0) {
+				var num = Math.floor(Math.random() * words_tmp.length);
+				play_words.push(words_tmp[num]);
+				words_tmp = pop_array(words_tmp, num);
 			}
 
 			// Inicialitzar el contador de resultats
-			resultats_erronis = new Array(play_verbs.length);
+			resultats_erronis = new Array(play_words.length);
 			for (var t = 0; t < resultats_erronis.length; ++t)  resultats_erronis[t] = 0;
 
 			total_punts   = 0;
 			total_errors  = 0;
 			total_encerts = 0;
-			num_pregunta  = 0;
+			num_quest  	  = 0;
+			num_try  	  = 0;
 			temps_partida = 90;
 			actualitzar_marcador();
-			$('#id_time > span').text('Time: ' + temps_partida);
-			
-			// Iniciar comptador temps
-			contador_timer = setInterval(function() {
-				temps_partida--;
-				$('#id_time > span').text('Time: ' + temps_partida);
-				if (temps_partida <= 0) { // Temps esgotat:
-					finalitzar_partida(false);
-				}
-			}, 1000);
-			
-			
+
+
+			// $('#id_time > span').text('Time: ' + temps_partida);
+			//
+			// // Iniciar comptador temps
+			// contador_timer = setInterval(function() {
+			// 	temps_partida--;
+			// 	$('#id_time > span').text('Time: ' + temps_partida);
+			// 	if (temps_partida <= 0) { // Temps esgotat:
+			// 		finalitzar_partida(false);
+			// 	}
+			// }, 1000);
+
 			preparar_pregunta();
 
-		}		
-		
-		
-		function preparar_pregunta() {
-
-			// Netejar estils opcions
-			$('.opcio').removeClass('opcio_error').removeClass('opcio_ok');
-
-			// Random per decidir a quina posició està la resposta correcta
-			resposta_correcta = Math.floor(Math.random() * 4);
-
-			$('#id_verb').text(play_verbs[num_pregunta].verb);	// Mostra el verb (pregunta)
-
-			var verbs_tmp = $.extend(true, [], play_verbs);				// Copia totes les respostes, per escollir incorrectes a l'atzar
-			verbs_tmp     = pop_array(verbs_tmp, num_pregunta);				// Exclou la resposta correcte
-			var resp_inc  = Math.floor(Math.random() * verbs_tmp.length);	// Escull una resposta incorrecta
-
-
-			$('#id_div_respostes').find('p').each(function(index) {
-				if (index != resposta_correcta) {	// Assignar resposta a l'atzar (que no sigui la correcta)
-					$(this).text(verbs_tmp[resp_inc].meaning);
-					verbs_tmp = pop_array(verbs_tmp, resp_inc);					// Exclou la resposta incorrecta
-					resp_inc  = Math.floor(Math.random() * verbs_tmp.length);	// Escull una altre resposta incorrecta
-				}
-			});
-
-			$('#id_div_respostes').find('p').eq(resposta_correcta).text(play_verbs[num_pregunta].meaning);	// Pinta la resposta correcta
 		}
 
-		
-		function marcar_resultat() {
+		// function finalitzar_partida(pf) {
+		//
+		// 	$('#id_div_respostes').hide().prev().hide();
+		// 	$('body > div:first').next().show();
+		// 	clearInterval(contador_timer);
+		//
+		// 	var final_text = pf ? 'WELL DONE!' : 'GAME OVER';
+		//
+		// 	$('h1').text(final_text).next().attr('value', 'Try again');
+		//
+		// }
 
-			if ( $('#id_div_respostes > p').index(this) == resposta_correcta) {	
-				// Resposta correcta
-				$(this).addClass('opcio_ok');
-				
-				if (resultats_erronis[num_pregunta] == 0) total_punts += 10;
-				if (resultats_erronis[num_pregunta] == 1) total_punts += 5;
-				if (resultats_erronis[num_pregunta] == 2) total_punts += 2;
-				
-				if (resultats_erronis[num_pregunta] == 0) total_encerts++;
-
-				num_pregunta = num_pregunta + 1;
-				if (num_pregunta >= play_verbs.length) finalitzar_partida(true);
-				else	setTimeout(preparar_pregunta, 200); // Esperar i llançar següent pregunta
-				
-			} else {
-
-				// Resposta incorrecta
-				if (!$(this).hasClass('opcio_error')) {
-					resultats_erronis[num_pregunta]++;
-					total_errors++;
-					$(this).addClass('opcio_error');
-				}
-			}
-			actualitzar_marcador();
-			
-		}
-		
 
 		function actualitzar_marcador() {
 			$('#id_scores > span:first')
-				.text('Answers: ' + num_pregunta + '/' + play_verbs.length)
+				.text('Words left: ' + words.length
+							 + ' / ' + play_words.length
+							 + ' / ' + (num_try + 1))
 				.next().text('Score: '  + total_punts)
 				.next().text('Hits: '   + total_encerts)
 				.next().text('Errors: ' + total_errors);
 		}
-		
-		
-		function finalitzar_partida(pf) {
-			
-			$('#id_div_respostes').hide().prev().hide();
-			$('body > div:first').next().show();
-			clearInterval(contador_timer);
 
-			var final_text = pf ? 'WELL DONE!' : 'GAME OVER';
-			
-			$('h1').text(final_text).next().attr('value', 'Try again');
-		
+		function recycle_list() {
+			// Delete answers with no mistakes
+			for (var t = play_words.length - 1; t >= 0; t--) {
+				if (play_words[t].res_ok > 0) {
+					play_words = pop_array(play_words, t);
+				}
+			}
+
+			if (play_words.length == 0) {
+				alert ('Congrats: you answer all!');
+			} else {
+
+				// Reorder all word left
+				var words_tmp = $.extend(true, [], play_words);
+				play_words = [];
+
+				while (words_tmp.length > 0) {
+					var num = Math.floor(Math.random() * words_tmp.length);
+					play_words.push(words_tmp[num]);
+					words_tmp = pop_array(words_tmp, num);
+				}
+
+				num_quest = 0;
+				preparar_pregunta();
+			}
+
+		}
+
+
+
+
+
+		function preparar_pregunta() {
+			$('#id_word').text((num_quest + 1) + ' - ' + play_words[num_quest].word);
+			$('#id_kind_word').text((num_quest + 1) + ' - ' + play_words[num_quest].tipus);
+			$('#id_resposta').val('').focus();
+		}
+
+		function test_answer() {
+			var col_ori = $('#id_div_respostes').css('background-color');
+			var ans_value = $('#id_resposta').val();
+
+
+			ans_value = ans_value
+							.replace(/à/g, "a")
+							.replace(/é/g, "e")
+							.replace(/è/g, "e")
+							.replace(/í/g, "i")
+							.replace(/ó/g, "o")
+							.replace(/ò/g, "o")
+							.replace(/ú/g, "u");
+
+			var good_answ = play_words[num_quest].meaning;
+			for (var t = 0; t < good_answ.length; t++) {
+				good_answ[t] = good_answ[t]
+								.replace(/à/g, "a")
+								.replace(/é/g, "e")
+								.replace(/è/g, "e")
+								.replace(/í/g, "i")
+								.replace(/ó/g, "o")
+								.replace(/ò/g, "o")
+								.replace(/ú/g, "u");
+			}
+
+
+			if (good_answ.indexOf(ans_value, 0) > -1) {
+				// Resposta correcta
+				$('#id_div_respostes')
+					.css('background-color', '#00ff00')
+					.animate({backgroundColor: col_ori}, 200, 'swing', function() {
+						// A executar quan acaba la animació
+						play_words[num_quest].res_ok++;
+						total_encerts++;
+						next_question();
+						actualitzar_marcador();
+						$('#id_resposta').css('background-color', '#ffffff');
+					} );
+
+
+			} else {
+				// Resposta incorrecta
+				$('#id_div_respostes')
+					.css('background-color', '#ff0000')
+					.animate({backgroundColor: col_ori}, 200, 'swing', function() {
+						// A executar quan acaba la animació
+						$('#id_resposta').css('background-color', 'red').select();
+						play_words[num_quest].res_ko++;
+						total_errors++;
+						actualitzar_marcador();
+					} );
+
+			}
+
+
+		}
+
+		function next_question() {
+			if (num_quest < play_words.length - 1) {
+				num_quest++;
+				num_try++;
+				preparar_pregunta();
+			} else {
+				recycle_list();
+			}
+		}
+
+
+
+		function answer_key_pres(ev) {
+			$('#id_resposta').css('background-color', 'white');
+			if (ev.keyCode == 13) {
+				if ( $('#id_resposta').val() == '') answer_question();
+				else 								test_answer();
+			}
+		}
+
+		function answer_help() {
+			// $('#id_div_question').stop().animate({backgroundColor:'#4E1402'}, 3000);
+			// $('#id_div_respostes').css('background-color', '#00ff00').animate({backgroundColor: "#d0e4fe"}, 300 );
+
+		}
+
+		function answer_question() {
+			var resp_text = '';
+			for (var t = 0; t < play_words[num_quest].meaning.length; t++) {
+				if (t > 0) resp_text += ' / ';
+				resp_text += play_words[num_quest].meaning[t];
+			}
+			alert(play_words[num_quest].word + ' --> ' + resp_text);
+			next_question();
 		}
 
 
@@ -264,20 +301,20 @@
 <body>
 
 
-	
-	
-	<div class="div_pantalla" style="display:none">
+
+
+	<div class="div_pantalla" style="display: none;">
 
 		<div style="
 				width: 95%; height: 40px;
 				padding: 15px;
-				font-size: 20px; 
-				display: flex; 
+				font-size: 20px;
+				display: flex;
 				flex-flow: column wrap;
 				align-content: space-between;
 				">
 			<div>
-				<p id="id_scores"> 
+				<p id="id_scores">
 					<span style="margin-left: 0px;" 			  > Answers: 0/20 </span>
 					<span style="margin-left: 30px; color: blue;" > Score: 0 </span>
 					<span style="margin-left: 30px; color: green;"> Hits: 0 </span>
@@ -285,31 +322,34 @@
 				</p>
 			</div>
 			<div>
-				<p id="id_time"> 
+				<p id="id_time">
 					<span> Time: 00 </span>
 				</p>
-			</div>			
+			</div>
 		</div>
 
-		<div style="font-size: 40px; width: 60%;">
-			<p id="id_verb"></p>
+		<div id="id_div_question" style="font-size: 40px; width: 80%; margin-left: 30px;">
+			<p id="id_word">cought</p>
+			<p id="id_kind_word" style="font-size: 16px; color: #00AA00;">Verb</p>
 		</div>
 
-		<div id="id_div_respostes" style="font-size: 25px; width:50%;">
-			<p id="id_opcio1" class="opcio"></p>
-			<p id="id_opcio2" class="opcio"></p>
-			<p id="id_opcio3" class="opcio"></p>
-			<p id="id_opcio4" class="opcio"></p>
+		<div id="id_div_respostes" style="padding: 10px; font-size: 25px; width:80%; margin-left: 30px;">
+			<input type="text" id="id_resposta" onkeydown="answer_key_pres(event);"	style="width: 300px; font-size: 25px;"></input> <br/>
+
+			<input type="button" value="Next" 	onclick="answer_question()"	style="width: 65px; height: 35px;"/>
+			<input type="button" value="Help" 	onclick="answer_help()"		disabled="true"	style="width: 65px; height: 35px; margin-left: 120px;"/>
+			<input type="button" value="?" 		onclick="answer_question()"	disabled="true" style="width: 35px; height: 35px;"/>
+			<!-- <input type="button" value="Ok" 	onclick="test_answer()"		style="width: 35px; height: 35px;"/> -->
 		</div>
 
 	</div>
 
 	<div class="div_pantalla">
-		<h1> Phrasal Verb Test</h2>
-		<input id="star_button" type="button" value="START!" style="font-size: 30px; padding:15px;"/>
+		<h1> Vocabulary Test</h2>
+		<input id="start_button" type="button" value="START!" style="font-size: 30px; padding:15px;"/>
 	</div>
-	
-	
+
+
 
 </body>
 
