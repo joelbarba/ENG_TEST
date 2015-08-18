@@ -4,12 +4,12 @@ cd /media/DISK3/PROGRAMES_PROPIS/APLICACIONS_WEB/ENG_TEST
 
 
 echo "Procediment per commitar canvis al repositori local i exportar-los a GitHub :"
-echo "Selecciona la branca correcte (C = casa / O = oficina) per defecte CASA :"
+echo "Selecciona la branca correcte (L = barba_laptop / C = casa) per defecte barba_laptop :"
 read x
-if [ "$x" = "O" ]; then
-	branca="oficina"
-else
+if [ "$x" = "C" ]; then
 	branca="casa"
+else
+	branca="barba_laptop"
 fi
 
 echo ""
