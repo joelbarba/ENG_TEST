@@ -39,7 +39,7 @@ eval $comanda;
 echo ""
 echo "Exportar branca $branca a GITHUB"
 echo "--> GIT PUSH GITHUB $branca (usr=joelbarba, pwd=cocaina02)"
-git push github $branca
+git push GITHUB $branca
 
 echo ""
 echo "Avançar branca MASTER a $branca"
@@ -51,7 +51,7 @@ git merge $branca
 echo ""
 echo "Exportar branca MASTER a GITHUB"
 echo "--> GIT PUSH GITHUB master (usr=joelbarba, pwd=cocaina02)"
-git push github master
+git push GITHUB master
 
 echo ""
 echo "Tornar a la branca de treball ($branca)"
