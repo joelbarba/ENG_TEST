@@ -39,6 +39,16 @@
 			border: solid 3px #33ff33;
 		}
 
+		table {
+			border-collapse: collapse;
+			background-color: rgb(170, 210, 255);
+    		color: #333333;
+			font-size: 12px;
+		}
+		table, th, td { border: 1px solid black; }
+		th { background-color: rgb(50, 150, 255); }
+		td { padding: 2px; }
+
 
 
 	</style>
@@ -60,7 +70,7 @@
 
 		var num_quest;
 		var resposta_correcta;
-		var resultats_erronis = [];
+		// var resultats_erronis = [];
 		var total_punts;
 		var total_errors;
 		var total_encerts;
@@ -100,6 +110,8 @@
 			$('body > div:first').show().next().hide().end().children().show();
 
 			// Reordenar llista play_words
+			var play_words = $.extend(true, [], words);
+/*
 			var words_tmp = $.extend(true, [], words);
 			play_words = [];
 
@@ -107,47 +119,45 @@
 				var num = Math.floor(Math.random() * words_tmp.length);
 				play_words.push(words_tmp[num]);
 				words_tmp = pop_array(words_tmp, num);
+
+				// $('<tr> <td>' + (play_words.length - 1) + '</td> <td>' + play_words[play_words.length - 1].word + '</td> <td>' + play_words[play_words.length - 1].tipus + '</td> </tr>')
+					// .appendTo('#id_word_list tbody');
+			}
+*/
+
+			for (var t = 0; t < play_words.length; t++) {
+
+				var resp_text = '';
+				for (var q = 0; q < play_words[t].meaning.length; q++) {
+					if (q > 0) resp_text += ', ';
+					resp_text += play_words[t].meaning[q];
+				}
+
+
+				//$('<tr> <td>' + (t + 1) + '</td> <td>' + play_words[t].word + '</td> <td>' + play_words[t].tipus + '</td> </tr>')
+				$('<tr> <td>' + (t + 1) + '</td> <td>' + resp_text + '</td> <td>' + play_words[t].tipus + '</td> </tr>')
+					.appendTo('#id_word_list tbody');
 			}
 
-			// Inicialitzar el contador de resultats
-			resultats_erronis = new Array(play_words.length);
-			for (var t = 0; t < resultats_erronis.length; ++t)  resultats_erronis[t] = 0;
+			$('#id_word_list td:first-child')
+				.css('text-align', 'center')
+				.next().css('text-align', 'left').css('padding-left', '8px')
+				.next().css('text-align', 'center');
+
 
 			total_punts   = 0;
 			total_errors  = 0;
 			total_encerts = 0;
 			num_quest  	  = 0;
 			num_try  	  = 0;
+			num_loop 	  = 0;
 			temps_partida = 90;
 			actualitzar_marcador();
 
 
-			// $('#id_time > span').text('Time: ' + temps_partida);
-			//
-			// // Iniciar comptador temps
-			// contador_timer = setInterval(function() {
-			// 	temps_partida--;
-			// 	$('#id_time > span').text('Time: ' + temps_partida);
-			// 	if (temps_partida <= 0) { // Temps esgotat:
-			// 		finalitzar_partida(false);
-			// 	}
-			// }, 1000);
-
 			preparar_pregunta();
 
 		}
-
-		// function finalitzar_partida(pf) {
-		//
-		// 	$('#id_div_respostes').hide().prev().hide();
-		// 	$('body > div:first').next().show();
-		// 	clearInterval(contador_timer);
-		//
-		// 	var final_text = pf ? 'WELL DONE!' : 'GAME OVER';
-		//
-		// 	$('h1').text(final_text).next().attr('value', 'Try again');
-		//
-		// }
 
 
 		function actualitzar_marcador() {
@@ -231,6 +241,7 @@
 					.css('background-color', '#00ff00')
 					.animate({backgroundColor: col_ori}, 200, 'swing', function() {
 						// A executar quan acaba la animació
+						$('#id_word_list tbody tr:eq(' + num_quest + ')').css('background-color', '#44ff44');
 						play_words[num_quest].res_ok++;
 						total_encerts++;
 						next_question();
@@ -245,6 +256,7 @@
 					.css('background-color', '#ff0000')
 					.animate({backgroundColor: col_ori}, 200, 'swing', function() {
 						// A executar quan acaba la animació
+						$('#id_word_list tbody tr:eq(' + num_quest + ')').css('background-color', '#ff4444');
 						$('#id_resposta').css('background-color', 'red').select();
 						play_words[num_quest].res_ko++;
 						total_errors++;
@@ -289,6 +301,12 @@
 				resp_text += play_words[num_quest].meaning[t];
 			}
 			alert(play_words[num_quest].word + ' --> ' + resp_text);
+
+			$('#id_word_list tbody tr:eq(' + num_quest + ')').css('background-color', '#ff4444');
+			play_words[num_quest].res_ko++;
+			total_errors++;
+			actualitzar_marcador();
+
 			next_question();
 		}
 
@@ -298,12 +316,9 @@
 </head>
 
 
-<body>
+<body style="width: 100%; height: 100%;">
 
-
-
-
-	<div class="div_pantalla" style="display: none;">
+	<div id="id_div_joc" class="div_pantalla" style="display: none; width: 100%; height: 100%">
 
 		<div style="
 				width: 95%; height: 40px;
@@ -328,23 +343,50 @@
 			</div>
 		</div>
 
-		<div id="id_div_question" style="font-size: 40px; width: 80%; margin-left: 30px;">
-			<p id="id_word">cought</p>
-			<p id="id_kind_word" style="font-size: 16px; color: #00AA00;">Verb</p>
-		</div>
+		<div style="
+				width: 95%; height: 800px;
+				padding: 15px;
+				display: flex;
+				flex-flow: column wrap;
+				align-items: stretch;
+				align-content: space-between;
+				">
+			<div style="width: 35%; height: 100%; padding: 10px; border: 1px solid black; overflow: auto;">
+				<p> llisa lateral </p>
 
-		<div id="id_div_respostes" style="padding: 10px; font-size: 25px; width:80%; margin-left: 30px;">
-			<input type="text" id="id_resposta" onkeydown="answer_key_pres(event);"	style="width: 300px; font-size: 25px;"></input> <br/>
+				<table id="id_word_list">
+					<thead>
+						<tr>
+							<th style="width:  30px; text-align: center;"></th>
+							<th style="width: 200px; text-align: left; padding-left: 8px;">word</th>
+							<th style="width:  40px; text-align: center;">type</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
 
-			<input type="button" value="Next" 	onclick="answer_question()"	style="width: 65px; height: 35px;"/>
-			<input type="button" value="Help" 	onclick="answer_help()"		disabled="true"	style="width: 65px; height: 35px; margin-left: 120px;"/>
-			<input type="button" value="?" 		onclick="answer_question()"	disabled="true" style="width: 35px; height: 35px;"/>
-			<!-- <input type="button" value="Ok" 	onclick="test_answer()"		style="width: 35px; height: 35px;"/> -->
+			<div style="width: 60%; height: 100%; margin: 10px;">
+				<div id="id_div_question" style="font-size: 40px; width: 80%; margin-left: 30px;">
+					<p id="id_word">cought</p>
+					<p id="id_kind_word" style="font-size: 16px; color: #00AA00;">Verb</p>
+				</div>
+
+				<div id="id_div_respostes" style="padding: 10px; font-size: 25px; width:80%; margin-left: 30px;">
+					<input type="text" id="id_resposta" onkeydown="answer_key_pres(event);"	style="width: 300px; font-size: 25px;"></input> <br/>
+
+					<input type="button" value="Next" 	onclick="answer_question()"	style="width: 65px; height: 35px;"/>
+					<input type="button" value="Help" 	onclick="answer_help()"		disabled="true"	style="width: 65px; height: 35px; margin-left: 120px;"/>
+					<input type="button" value="?" 		onclick="answer_question()"	disabled="true" style="width: 35px; height: 35px;"/>
+					<!-- <input type="button" value="Ok" 	onclick="test_answer()"		style="width: 35px; height: 35px;"/> -->
+				</div>
+			</div>
+
 		</div>
 
 	</div>
 
-	<div class="div_pantalla">
+	<div id="id_div_inici" class="div_pantalla">
 		<h1> Vocabulary Test</h2>
 		<input id="start_button" type="button" value="START!" style="font-size: 30px; padding:15px;"/>
 	</div>
