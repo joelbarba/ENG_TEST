@@ -1,5 +1,5 @@
 // https://www.englishclub.com/vocabulary/phrasal-verbs-list.htm
-/*
+/* 
 var words = [
 { word: 'chest', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['pit'] },
 { word: 'waist', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['cintura'] },
