@@ -1,3 +1,5 @@
+// https://www.englishclub.com/vocabulary/phrasal-verbs-list.htm
+/*
 var words = [
 { word: 'chest', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['pit'] },
 { word: 'waist', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['cintura'] },
@@ -10,7 +12,7 @@ var words = [
 { word: 'brow', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['front', '(front de la cara)'] },
 { word: 'eyebrow', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['cella'] },
 { word: 'cheek', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['galta', 'mejilla'] },
-// ];/*
+];/*
 { word: 'cheekbone', 		tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['pòmul', '(de la galta)'] },
 { word: 'breast', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['pit'] },
 { word: 'elbow', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['colze'] },
@@ -142,3 +144,4 @@ var words = [
 { word: 'duly', 			tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['degudament'] },
 { word: 'properly', 		tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['adecuadament'] }
 ];
+*/
