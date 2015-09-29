@@ -1,6 +1,6 @@
+// https://www.englishclub.com/vocabulary/phrasal-verbs-list.htm
+/* 
 var words = [
-
-
 { word: 'chest', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['pit'] },
 { word: 'waist', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['cintura'] },
 { word: 'limbs', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['extremitats', 'braços i cames'] },
@@ -12,6 +12,7 @@ var words = [
 { word: 'brow', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['front', '(front de la cara)'] },
 { word: 'eyebrow', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['cella'] },
 { word: 'cheek', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['galta', 'mejilla'] },
+];/*
 { word: 'cheekbone', 		tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['pòmul', '(de la galta)'] },
 { word: 'breast', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['pit'] },
 { word: 'elbow', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['colze'] },
@@ -22,13 +23,12 @@ var words = [
 { word: 'fist', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['puny'] },
 { word: 'knuckle', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['artell', 'nudillo'] },
 { word: 'wrist', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['canell', 'muñeca'] },
-{ word: 'gut', 				tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['intestí'] },
+{ word: 'gut', 				tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['intestí', 'budell', 'budells'] },
 { word: 'thigh', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['cuixa'] },
 { word: 'thumb', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['dit polze', 'polze', 'pulgar'] },
 { word: 'gullet', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['gola', 'esófag', 'gaznate', 'garganta'] },
 { word: 'eyelids', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['parpelles'] },
 { word: 'rib', 				tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['costella'] },
-
 { word: 'Never', 			tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['mai'] },
 { word: 'Hardly ever', 		tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['casi mai'] },
 { word: 'Rarely', 			tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['rarament'] },
@@ -36,11 +36,10 @@ var words = [
 { word: 'Occasionally', 	tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['ocasionalment'] },
 { word: 'Sometimes', 		tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['algunes vegades'] },
 { word: 'Often', 			tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['de tant en tant'] },
-{ word: 'Frecuently', 		tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['amb freqüència'] },
+{ word: 'Frecuently', 		tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['amb freqüència', 'freqüentment', 'freqüent', 'frecuentment'] },
 { word: 'Normally', 		tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['normalment'] },
 { word: 'Usually', 			tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['usualment'] },
 { word: 'Always', 			tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['sempre'] },
-
 { word: 'wits', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['perspicacia', 'inteligència', 'sentit del humor'] },
 { word: 'cough', 			tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['estornudar', 'tossir'] },
 { word: 'spit', 			tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['escupir'] },
@@ -63,7 +62,7 @@ var words = [
 { word: 'appointment', 		tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['cita', 'designació'] },
 { word: 'sturdy', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['robust'] },
 { word: 'reliable', 		tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['segur', 'confiable'] },
-{ word: 'bucked', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['galleda', 'cubo'] },
+{ word: 'bucked', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['galleda', 'cubell', 'cubo'] },
 { word: 'hire', 			tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['llogar', 'contractar'] },
 { word: 'fee', 				tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['quota', 'preu periòdic'] },
 { word: 'pry', 				tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['palanca'] },
@@ -74,12 +73,12 @@ var words = [
 { word: 'creep', 			tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['arrastrar-se', 'arrastrar'] },
 { word: 'snore', 			tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['roncar'] },
 { word: 'owe', 				tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['deure', 'deber'] },
-{ word: 'duty', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['deure', 'obligació'] },
+{ word: 'duty', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['deure', 'obligació', 'deber'] },
 { word: 'thick', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['gruixut', 'groixut', 'espès'] },
 { word: 'weary', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['cansat'] },
 { word: 'glad', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['content', 'alegre'] },
 { word: 'rough', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['aspre'] },
-{ word: 'pluck', 			tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['arrancar', 'agafar'] },
+{ word: 'pluck', 			tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['arrancar', 'arrencar', 'agafar'] },
 { word: 'soak', 			tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['remullar', 'empapar'] },
 { word: 'rave', 			tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['delirar'] },
 { word: 'cleaver', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['ganivet de carniser'] },
@@ -119,7 +118,7 @@ var words = [
 { word: 'grope', 			tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['tentar', '(de tentació)'] },
 { word: 'smooth', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['llis', '(de superfície llisa)'] },
 { word: 'hesitate', 		tipus: 'V', 	res_ok: 0, res_ko: 0, meaning: ['vacilar'] },
-{ word: 'ripe', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['madur'] },
+{ word: 'ripe', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['madur'] },
 { word: 'stride', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['pas llarg', 'gambada', 'zancada'] },
 { word: 'tear', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['llàgrima', 'estrip'] },
 { word: 'supple', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['flexible'] },
@@ -133,7 +132,7 @@ var words = [
 { word: 'pretty', 			tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['bastant'] },
 { word: 'pretty', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['bonic'] },
 { word: 'quite', 			tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['bastant'] },
-{ word: 'lush', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['exuberant'] },
+{ word: 'lush', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['exuberant', 'exhuberant', 'exoberant'] },
 { word: 'tight', 			tipus: 'Adj', 	res_ok: 0, res_ko: 0, meaning: ['ajustat', 'apretat'] },
 { word: 'butt', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['culata', 'extrem', 'cul'] },
 { word: 'tar', 				tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['alquitrà'] },
@@ -144,6 +143,5 @@ var words = [
 { word: 'pillow', 			tipus: 'N', 	res_ok: 0, res_ko: 0, meaning: ['coixí'] },
 { word: 'duly', 			tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['degudament'] },
 { word: 'properly', 		tipus: 'Adv', 	res_ok: 0, res_ko: 0, meaning: ['adecuadament'] }
-
-
 ];
+*/
