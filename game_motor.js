@@ -28,6 +28,7 @@ function iron_up_str(str_input1) {
 /*********************************************************************************************************************/
 
 function anotar_resultat(sheet_row, result) {
+/*
 	google.script.run
 	   .withSuccessHandler(function(contents) {
 	        // Respond to success conditions here.
@@ -40,6 +41,7 @@ function anotar_resultat(sheet_row, result) {
 	        $('#error-message').show();
 	      })
 	   .macro_anotar_resultat(sheet_row, result); // Macro de la Google API
+*/
 }
 
 
@@ -48,6 +50,7 @@ function carregar_llista() {
 	$('#start_button').attr('disabled', 'true');
     $('#id_titol_joc').text('Loading');
 
+/*
     words = [];
     timer_loading.start();
 
@@ -65,6 +68,9 @@ function carregar_llista() {
           $('#error-message').show();
       })
       .macro_llegir_doc(); // Macro de la Google API
+*/
+
+	iniciar_partida(); /// <--- Versió sense API feed
 }
 
 /*********************************************************************************************************************/

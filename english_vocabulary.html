@@ -49,13 +49,21 @@
 		th { background-color: rgb(50, 150, 255); }
 		td { padding: 2px; }
 
+		.result-display {
+		  margin-left: 15px;
+		  font-size: 125%;
+		}
+
+		.error { color: #FF0000; }
+		.hidden { display: none; }
+
 
 
 	</style>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
-
   	<script src="jquery-ui/jquery-ui.js"></script>
+	<script src="game_motor.js"></script>
 
 	<script>
 		var words = [
@@ -65,10 +73,10 @@
 		{ word: 'lung', 			tipus: 'N', 	attempts: 0, res_ok: 0, meaning: 'pulmó' },
 		{ word: 'heel', 			tipus: 'N', 	attempts: 0, res_ok: 0, meaning: 'taló' },
 		{ word: 'belly', 			tipus: 'N', 	attempts: 0, res_ok: 0, meaning: 'ventre, panxa' },
-		{ word: 'hip', 			tipus: 'N', 	attempts: 0, res_ok: 0, meaning: 'cadera' },
+		{ word: 'hip', 				tipus: 'N', 	attempts: 0, res_ok: 0, meaning: 'cadera' },
 		{ word: 'forehead', 		tipus: 'N', 	attempts: 0, res_ok: 0, meaning: 'front, (front de la cara)' },
 		{ word: 'brow', 			tipus: 'N', 	attempts: 0, res_ok: 0, meaning: 'front, (front de la cara)' },
-		{ word: 'eyebrow', 		tipus: 'N', 	attempts: 0, res_ok: 0, meaning: 'cella' },
+		{ word: 'eyebrow', 			tipus: 'N', 	attempts: 0, res_ok: 0, meaning: 'cella' },
 		{ word: 'cheek', 			tipus: 'N', 	attempts: 0, res_ok: 0, meaning: 'galta, mejilla' }
 		];
 
@@ -79,14 +87,21 @@
 		});
 
 	</script>
-	<script src="game_motor.js"></script>
 
 </head>
 
+  <body style="width: 100%; height: 100%; overflow: hidden;">
 
-<body style="width: 100%; height: 100%;">
+	<div id="id_div_inici" class="div_pantalla">
+		<h1 id="id_titol_joc"> Vocabulary Test</h1>
+		<input id="start_button" type="button" value="START!" disabled="true" style="font-size: 30px; padding:15px;"/>
+        <br/>
+		<a href='https://docs.google.com/spreadsheets/d/1uF8lSH2YHDEtMN_jxpke0f9oU8yDfXpR4Ai4TQb-gi0/edit?usp=sharing'
+           target='_blank'> Vocabulary list </a>
+	</div>
 
-	<div id="id_div_joc" class="div_pantalla" style="display: none; width: 100%; height: 100%">
+
+    <div id="id_div_joc" class="div_pantalla" style="display: none; width: 100%; height: 100%">
 
 		<div style="
 				width: 95%; height: 40px;
@@ -106,19 +121,21 @@
 			</div>
 			<div>
 				<p id="id_time">
-					<span> Time: 00 </span>
+                  <a href='https://docs.google.com/spreadsheets/d/1uF8lSH2YHDEtMN_jxpke0f9oU8yDfXpR4Ai4TQb-gi0/edit?usp=sharing'
+                     target='_blank'> List </a>
 				</p>
 			</div>
+
 		</div>
 
-		<div style="
-				width: 95%; height: 800px;
+		<div style='
+				width: 95%; height: 625px;
 				padding: 15px;
 				display: flex;
 				flex-flow: column wrap;
 				align-items: stretch;
 				align-content: space-between;
-				">
+				'>
 			<div style="width: 35%; height: 100%; padding: 10px; border: 1px solid black; overflow: auto;">
 				<p> llisa lateral </p>
 
@@ -141,12 +158,11 @@
 				</div>
 
 				<div id="id_div_respostes" style="padding: 10px; font-size: 25px; width:80%; margin-left: 30px;">
-					<input type="text" id="id_resposta" onkeydown="answer_key_pres(event);"	style="width: 300px; font-size: 25px;"></input> <br/>
+					<input type="text" id="id_resposta" onkeydown="answer_key_pres(event);"	style="width: 300px; font-size: 25px;"/> <br/>
 
-					<input type="button" value="Next" 	onclick="answer_question()"	style="width: 65px; height: 35px;"/>
+					<input type="button" value="Next" 	onclick="answer_skip()"	style="width: 65px; height: 35px;"/>
 					<input type="button" value="Help" 	onclick="answer_help()"		disabled="true"	style="width: 65px; height: 35px; margin-left: 120px;"/>
 					<input type="button" value="?" 		onclick="answer_question()"	disabled="true" style="width: 35px; height: 35px;"/>
-					<!-- <input type="button" value="Ok" 	onclick="test_answer()"		style="width: 35px; height: 35px;"/> -->
 				</div>
 			</div>
 
@@ -154,13 +170,11 @@
 
 	</div>
 
-	<div id="id_div_inici" class="div_pantalla">
-		<h1> Vocabulary Test</h2>
-		<input id="start_button" type="button" value="START!" style="font-size: 30px; padding:15px;"/>
-	</div>
+    <div class="block result-display" id="results">
+      <div class="hidden" id="error-message">
+        Verify that you have permission to access this folder and that the specified folder ID (if any) is correct.
+      </div>
+    </div>
 
-
-
-</body>
-
-</html>
+  </body>
+  </html>
