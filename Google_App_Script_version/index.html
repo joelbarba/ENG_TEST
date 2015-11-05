@@ -1,0 +1,112 @@
+<!-- Use a templated HTML printing scriptlet to import common stylesheet. -->
+<?!= HtmlService.createHtmlOutputFromFile('Stylesheet').getContent(); ?>
+<html>
+
+  <body style="width: 100%; height: 100%; overflow: hidden;">
+
+	<div id="id_div_inici" class="div_pantalla">
+		<h1 id="id_titol_joc"> Vocabulary Test</h1>
+		<input id="start_button" type="button" value="START!" disabled="true" style="font-size: 30px; padding:15px;"/>
+        <br/>
+        <p>
+        <select id="id_select_list"
+                onchange="$('.id_link_edit_list').attr('href', 'https://docs.google.com/spreadsheets/d/' + $('#id_select_list').val() + '/edit?usp=sharing');" >
+
+          <option value="1P6iBJLoZIujfvm3PF5Ilxebv4-WE4xouktizLaZ7Y7M">Useful words (ENG -> ESP)</option>
+          <option value="1uF8lSH2YHDEtMN_jxpke0f9oU8yDfXpR4Ai4TQb-gi0">Uncommon words (ENG -> ESP)</option>
+          <option value="1CEoo7iQWQ5KScJwBwqVcA6RInN3aQCB3pz49y6DaXVk">Verb1 + Verb2 list</option>
+          <option value="1sYngRoeVqWe-z2GZwA8zxRapzIAuBB6iZ0ZiYGq76nw">Verb1 + Verb2 examples</option>
+          <option value="1CtrsnzhZqOtXhIAY5Y9m8G1W6k4ZEoj-LdKY9TCUB_w">Useful sentences</option>
+
+
+          <option value="valor2">Phrasal verbs (ENG -> ESP)</option>
+          <option value="">---------------------------</option>
+
+          <option value="1CtjzLcXd3BjzPY4YX_82IPjgPGYxQkRSLfCtlWNDrvw">Useful words (ESP -> ENG)</option>
+
+        </select>
+		<a style="margin-left:50px" class="id_link_edit_list" href='' target='_blank'> Edit list </a>
+        </p>
+	</div>
+
+
+    <div id="id_div_joc" class="div_pantalla" style="display: none; width: 100%; height: 100%">
+
+		<div style="
+				width: 95%; height: 40px;
+				padding: 15px;
+				font-size: 20px;
+				display: flex;
+				flex-flow: column wrap;
+				align-content: space-between;
+				">
+			<div>
+				<p id="id_scores">
+					<span style="margin-left: 0px;" 			  > Answers: 0/20 </span>
+					<span style="margin-left: 30px; color: blue;" > Score: 0 </span>
+					<span style="margin-left: 30px; color: green;"> Hits: 0 </span>
+					<span style="margin-left: 30px; color: red;"  > Errors: 0 </span>
+				</p>
+			</div>
+			<div>
+				<p id="id_time">
+                  <a class="id_link_edit_list" href='' target='_blank'> List </a>
+				</p>
+			</div>
+
+		</div>
+
+		<div style='
+				width: 95%; height: 625px;
+				padding: 15px;
+				display: flex;
+				flex-flow: column wrap;
+				align-items: stretch;
+				align-content: space-between;
+				'>
+			<div style="width: 35%; height: 100%; padding: 10px; border: 1px solid black; overflow: auto;">
+				<p> llisa lateral </p>
+
+				<table id="id_word_list">
+					<thead>
+						<tr>
+							<th style="width:  30px; text-align: center;"></th>
+							<th style="width: 200px; text-align: left; padding-left: 8px;">word</th>
+							<th style="width:  40px; text-align: center;">type</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<div style="width: 60%; height: 100%; margin: 10px;">
+				<div id="id_div_question" style="font-size: 40px; width: 80%; margin-left: 30px;">
+					<p id="id_word">cought</p>
+					<p id="id_kind_word" style="font-size: 16px; color: #00AA00;">Verb</p>
+				</div>
+
+				<div id="id_div_respostes" style="padding: 10px; font-size: 25px; width:80%; margin-left: 30px;">
+					<input type="text" id="id_resposta" onkeydown="answer_key_pres(event);"	style="width: 300px; font-size: 25px;"/> <br/>
+
+					<input type="button" value="Next" 	onclick="answer_skip()"	style="width: 65px; height: 35px;"/>
+					<input type="button" value="Help" 	onclick="answer_help()"		disabled="true"	style="width: 65px; height: 35px; margin-left: 120px;"/>
+					<input type="button" value="?" 		onclick="answer_question()"	disabled="true" style="width: 35px; height: 35px;"/>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+    <div class="block result-display" id="results">
+      <div class="hidden" id="error-message">
+        Verify that you have permission to access this folder and that the specified folder ID (if any) is correct.
+      </div>
+    </div>
+
+  </body>
+</html>
+
+<!-- Use a templated HTML printing scriptlet to import JavaScript. -->
+<?!= HtmlService.createHtmlOutputFromFile('JavaScript').getContent(); ?>
+<?!= HtmlService.createHtmlOutputFromFile('jquery_ui.js').getContent(); ?>
