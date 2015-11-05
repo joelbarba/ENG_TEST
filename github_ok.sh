@@ -4,12 +4,12 @@ cd /media/DISK3/PROGRAMES_PROPIS/APLICACIONS_WEB/ENG_TEST
 
 
 echo "Procediment per commitar canvis al repositori local i exportar-los a GitHub :"
-echo "Selecciona la branca correcte (L = barba_laptop / C = casa) per defecte barba_laptop :"
+echo "Selecciona la branca correcte (L = barba_laptop / M = master) per defecte master :"
 read x
-if [ "$x" = "C" ]; then
-	branca="casa"
-else
+if [ "$x" = "L" ]; then
 	branca="barba_laptop"
+else
+	branca="master"
 fi
 
 echo ""
@@ -25,7 +25,7 @@ read x
 if [ "$x" = "n" ]; then
 	echo "No s'han afegit els fitxers"
 else
-	git add *
+	git add .
 fi
 echo "--> GIT STATUS (fitxers preparats per commitar)"
 git status
