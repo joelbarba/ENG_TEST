@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+	<style>
+
+		body {
+			font-family: Verdana;
+			background-color: #d0e4fe;
+		}
+	</style>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+  	<script src="jquery-ui/jquery-ui.js"></script>
+
+	<script type="text/javascript">
+
+		// hexString = yourNumber.toString(16);
+		// yourNumber = parseInt(hexString, 16);
+
+		var ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+		var ALPHABET_MAP = {};
+		var BASE = 58;
+		var LEADER = '1';
+
+		$(document).ready(function() {
+
+			for (var i = 0; i < ALPHABET.length; i++) ALPHABET_MAP[ALPHABET.charAt(i)] = i;	// Ini alphabet map array
+
+			$('#id_input_addres').val('800C28FCA386C7A227600B2FE50B7CAE11EC86D3BF1FBE471BE89827E19D72AA1D507A5B8D');
+			//$('#id_input_addres').val('800C28FCA386C7A227600B2FE50B7CAE11EC86D3BF1FBE471BE89827E19D72AA');
+
+		});
+
+		function generate_address() {
+			var val = $('#id_input_addres').val();
+			$('<p> ' + val + ' base 16 = ' + enc64_58(val) + ' base 58</p>').appendTo('body');
+		}
+
+
+/*
+
+http://localhost/ENG_TEST/bitcoin_lab.html
+http://lenschulwitz.com/base58
+https://en.bitcoin.it/wiki/Wallet_import_format
+
+
+800C28FCA386C7A227600B2FE50B7CAE11EC86D3BF1FBE471BE89827E19D72AA1D507A5B8D base 16 =
+5HueCGU8rMjxEXxiPuD5BDku4MkFqeZyd4dZ1jvhTVqvbTLvyTJ
+5HueCGU8rMjxEXxiPuD5BDku4MkFqeZyd4dZ1jvhTVqvbTLvyTJ
+
+
+800C28FCA386C7A227600B2FE50B7CAE11EC86D3BF1FBE471BE8 9827E19D72AA1D507A5B8D
+4vR3v4spVpRksahmQsKSeyJ8M5G9KXS8GsJX
+4vR3v4spVpRksahmQsKSeyJ8M5G9KXS8GsJX
+
+
+800C28FCA386C7A227600B2FE50B7CAE11EC86D3BF1FBE471BE89827E19D72AA1D507A5B 8D
+yPoVP5njSzmEVK4VJGRWWAwqnwCyLPRcMm5XyrKgY1D9G2oDL
+yPoVP5njSzmEVK4VJGRWWAwqnwCyLPRcMm5XyrKgY1D9G2oDL
+
+5HueCGU8rMjxEXxiPuD5BDku4MkFqeZyd4dZ1jvhTVqvbTLvyTJ
+5HueCGU8rMjxEXxiPuD5BDku4MkFqeZyd4dZ1jvhTVqvbTLvyTJ
+56wqpQMZiRng8fJYJeb1vRoCHY9a2VhWiGVeLcJXi1KgCaoZS9
+r7uMq5WE4yBa6sqD93fs7R7S81SMv3PUaUbSxNedMhtMxqmaahGJ
+
+
+123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
+15383 = (3364 * 4) + (58 * 33) + (1 * 13) = [4,33,13] = 5aE
+15383 = 11110000010111
+15383 = 3C17
+15383 en b64 = [ 3,48,23]
+15383 en b63 = [ 3,55,11]
+15383 en b62 = [04,00,07]
+15383 en b61 = [04,08,11]
+15383 en b60 = [04,16,23]
+15383 en b59 = [04,24,43]
+15383 en b58 = [04,33,13] = 5aE
+
+
+
+	*33=1914
+			−1927
+		*4=13456
+1	58	3364	195112
+
+*/
+
+
+		function enc64_58(entrada) {
+			var test_loops = 0;
+			var test_max_val = 0;
+			var ALPHABET_16 = '0123456789ABCDEF';
+			var ALPHABET_58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+			var ALP_16_MAP = {};
+			for (var i = 0; i < ALPHABET_16.length; i++) ALP_16_MAP[ALPHABET_16.charAt(i)] = i;
+
+			// Get an array with every digit value as integer
+			var array_64 = [];
+			var array_58 = [];
+
+			entrada = entrada.toUpperCase();
+
+			// Conver from hexadecimal to 64 base array
+			for (var t = entrada.length - 1; t >= 0; t = t - 3) {
+
+				if (t > 1) var hex1 = ALP_16_MAP[entrada.charAt(t - 2)]; else var hex1 = 0;
+				if (t > 0) var hex2 = ALP_16_MAP[entrada.charAt(t - 1)]; else var hex2 = 0;
+				var tiple_hex = (hex1 * 256) + (hex2 * 16) + ALP_16_MAP[entrada.charAt(t)];
+
+				var low_val = tiple_hex % 64;	// get the fitst 6 bites
+				var hig_val = tiple_hex >> 6;	// shift 6 bites (2^64)
+
+				array_64.unshift(low_val);
+				if (hig_val > 0 || t > 2) array_64.unshift(hig_val);
+			}
+
+			array_64.reverse();	// Work with the less significant digit 0, and growing in number more significant
+			// $('<p> array_64=' + array_64 + ' / b64_digits=' + array_64.length + ' / b16_digits=' + entrada.length + '</p>').appendTo('body');
+
+
+			var output_base = 58;
+			for (var base = 63; base >= output_base; base--) {
+
+				// Inicialitzar array de sortida i crear buffers temporals
+				array_58 = []; for (var t = 0; t < array_64.length; t++) array_58.push(0);
+				var buffer_mult = $.extend(true, [], array_58);
+				buffer_mult[0] = 1;	// Setejar multiplicador inicial
+
+				// General bucle to shift each digit
+				for (var cdig = 0; cdig < buffer_mult.length; cdig++) {
+
+					// Iterar matriu de multiplicadors
+					for (var t = cdig; t > 0; t--) buffer_mult[t] += (buffer_mult[t - 1] || 0);
+
+					// Arrosegar resultats
+					for (var t = 0; t < cdig; t++) {
+						if (buffer_mult[t] >= base) {
+							var carry_v = 0;
+							var q = t;
+							do {
+								buffer_mult[q] += carry_v;
+								if (q < cdig - 1) {	// No arrossegar més enllà de l'últim dígit de la iteració general
+									carry_v = Math.floor(buffer_mult[q] / base);
+									buffer_mult[q] %= base;
+								} else { carry_v = 0; }
+								q++;
+							} while (carry_v > 0);
+						}
+					}
+
+					// Multiplicar i acumular nous valors
+					for (var t = 0; t < buffer_mult.length; t++) {
+						var carry_v = buffer_mult[t] * (array_64[cdig] || 0);	// Acumular valors multiplicats
+						var q = t;
+						while (carry_v > 0) {	// Arrossegar resultat cap amunt
+							test_loops++;
+							if (q >= array_58.length) {
+								array_58.push(0);
+							}
+							array_58[q] += carry_v;
+							carry_v = Math.floor(array_58[q] / base);
+							array_58[q] %= base;
+							q++;
+						}
+					}
+				}
+				array_64 = $.extend(true, [], array_58);
+			}
+
+			array_58.reverse();
+
+			var string_result = '';
+			for (var t = 0; t < array_58.length; t++) string_result += ALPHABET_58.charAt(array_58[t]);
+
+			$('<p> test_loops = ' + test_loops + ', test_max_val = ' + test_max_val + '</p>').appendTo('body');
+			return string_result;
+		}
+
+
+		function enc64_58_large(entrada) {
+			var test_loops = 0;
+			var test_max_val = 0;
+			var ALPHABET_16 = '0123456789ABCDEF';
+			var ALPHABET_58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+			var ALP_16_MAP = {};
+			for (var i = 0; i < ALPHABET_16.length; i++) ALP_16_MAP[ALPHABET_16.charAt(i)] = i;
+
+			// Get an array with every digit value as integer
+			var array_64 = [];
+			var array_58 = [];
+
+			entrada = entrada.toUpperCase();
+
+			for (var t = entrada.length - 1; t >= 0; t = t - 3) {
+
+				if (t > 1) var hex1 = ALP_16_MAP[entrada.charAt(t - 2)]; else var hex1 = 0;
+				if (t > 0) var hex2 = ALP_16_MAP[entrada.charAt(t - 1)]; else var hex2 = 0;
+				var tiple_hex = (hex1 * 256) + (hex2 * 16) + ALP_16_MAP[entrada.charAt(t)];
+
+				var low_val = tiple_hex % 64;	// get the fitst 6 bites
+				var hig_val = tiple_hex >> 6;	// shift 6 bites (2^64)
+
+				array_64.unshift(low_val);
+				if (hig_val > 0 || t > 2) array_64.unshift(hig_val);
+			}
+
+			array_64.reverse();	// Work with the less significant digit 0, and growing in number more significant
+			// $('<p> array_64=' + array_64 + ' / b64_digits=' + array_64.length + ' / b16_digits=' + entrada.length + '</p>').appendTo('body');
+
+
+			var output_base = 58;
+			for (var base = 63; base >= output_base; base--) {
+
+				// Inicialitzar array de sortida i crear buffers temporals
+				array_58 = []; for (var t = 0; t < array_64.length; t++) array_58.push(0);
+				var buffer_mult = $.extend(true, [], array_58);
+				var buffer_accm = $.extend(true, [], array_58);
+
+				// Setejar el multiplicador i acumulador inicial
+				buffer_mult[0] = 1;
+				if (array_64.length > 1)	buffer_accm[0] = array_64[1];
+				else 						buffer_accm[0] = 0;
+
+				// array_58[0] = array_64[0];
+
+				// Generar els multiplicadors de canvi
+				for (var cdig = 0; cdig < buffer_mult.length; cdig++) {
+
+					var carry_v = 0;
+					// buffer_mult[cdig] = buffer_mult[cdig - 1]  + 1;
+
+					for (var t = cdig; t > 0; t--) {
+						buffer_mult[t] += (buffer_mult[t - 1] || 0);
+						test_loops++;
+						if (buffer_mult[t] > test_max_val) test_max_val = buffer_mult[t];
+					}
+
+					// Arrosegar resultats
+					for (var t = 0; t < cdig; t++) {
+						if (buffer_mult[t] >= base) {
+							var carry_v = 0;
+							var q = t;
+							do {
+								buffer_mult[q] += carry_v;
+								if (q < cdig - 1) {
+									carry_v = Math.floor(buffer_mult[q] / base);
+									buffer_mult[q] %= base;
+								} else { carry_v = 0; }
+								q++;
+							} while (carry_v > 0);
+						}
+					}
+
+					// Multiplicar i acumular nous valors
+					for (var t = 0; t < buffer_mult.length; t++) {
+						// buffer_accm[t] += buffer_mult[t] * (array_64[cdig + 1] || 0);
+						// test_loops++;
+
+						carry_v = buffer_mult[t] * (array_64[cdig] || 0);
+						var q = t;
+						while (carry_v > 0) {	// Arrossegar resultat cap amunt
+							test_loops++;
+							if (q >= array_58.length) {
+								array_58.push(0);
+							}
+							array_58[q] += carry_v;
+							carry_v = Math.floor(array_58[q] / base);
+							array_58[q] %= base;
+							q++;
+						}
+						// if (buffer_accm[t] > test_max_val) test_max_val = buffer_accm[t];
+					}
+					//$('<p> ' + base + ', cdig=' + cdig + ' -> buffer_mult=' + buffer_mult + '</p>').appendTo('body');
+				}
+/*
+				// Construir array de sortida segons la base
+				for (var cdig = 0; cdig < buffer_accm.length; cdig++) {
+					carry_v = (array_64[cdig] || 0) + buffer_accm[cdig];
+					//if (carry_v > test_max_val) test_max_val = carry_v;
+					var t = cdig;
+					while (carry_v > 0) {	// Arrossegar resultat cap amunt
+						test_loops++;
+						if (t >= array_58.length) {
+							array_58.push(0);
+						}
+						array_58[t] += carry_v;
+						carry_v = Math.floor(array_58[t] / base);
+						array_58[t] %= base;
+						t++;
+					}
+				}
+*/
+				/*
+				$('<p> ' + base + ' -> '
+					+ ' buffer_mult.length = ' + buffer_mult.length
+					+ ' array_64.length = ' + array_64.length
+					+ ' array_58.length = ' + array_58.length
+					+ '</p>').appendTo('body');
+				$('<p> ' + base + ' -> buffer_mult=' + buffer_mult + '</p>').appendTo('body');
+				$('<p> ' + base + ' -> buffer_accm=['
+					+ buffer_accm[buffer_accm.length - 10] + ','
+					+ buffer_accm[buffer_accm.length - 9] + ','
+					+ buffer_accm[buffer_accm.length - 8] + ','
+					+ buffer_accm[buffer_accm.length - 7] + ','
+					+ buffer_accm[buffer_accm.length - 6] + ','
+					+ buffer_accm[buffer_accm.length - 5] + ','
+					+ buffer_accm[buffer_accm.length - 4] + ','
+					+ buffer_accm[buffer_accm.length - 3] + ','
+					+ buffer_accm[buffer_accm.length - 2] + ','
+					+ buffer_accm[buffer_accm.length - 1]
+					+ ']</p>').appendTo('body');
+						*/
+				array_64 = $.extend(true, [], array_58);
+
+			}
+
+			array_58.reverse();
+
+			var string_result = '';
+			for (var t = 0; t < array_58.length; t++) string_result += ALPHABET_58.charAt(array_58[t]);
+
+			$('<p> test_loops = ' + test_loops + ', test_max_val = ' + test_max_val + '</p>').appendTo('body');
+			return string_result;
+		}
+
+
+
+
+
+		function set_random_V_key() {
+			$('#id_input_addres').val(set_random_val(32));
+		}
+
+		function set_random_val(long_bytes) {
+			var res = '';
+
+			for (var t = 0; t < long_bytes; t++) {
+				val_byte = Math.floor(Math.random() * 256);
+				if (val_byte < 16) res += '0';
+				res += val_byte.toString(16);
+			}
+
+			return res;
+		}
+
+	</script>
+
+
+</head>
+
+<body style="width: 100%; height: 100%; ">
+
+	<h1> Bitcoin Lab </h1>
+
+	Address private key (256bit / 32bytes):
+	<br/>
+	<input 	type="text" id="id_input_addres" maxlength="100" style="width:830px; font-family: monospace;"
+			value="800C2800"/>
+	<button onclick="set_random_V_key();"> Set random key </button>
+	<br/>
+	<button onclick="generate_address();"> Generate address </button>
+
+
+	<iframe id="id_iframe_trans" src="http://www.w3schools.com"></iframe>
+
+</body>
+</html>
