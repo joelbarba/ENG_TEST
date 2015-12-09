@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+
+
+		$(function() {
+			// gapi.load('auth', init);
+
+			// var strvar = '[["media","mean",,,10],[,,,"mn"]]';
+			// eval("var r = " + strvar + ";");
+			// $('body').prepend('ok' + r[0][2]);
+
+			ini_trans();
+
+		});
+
+
+		function ini_trans() {
+			$.post("gtrans_hook.php",
+				{ 	paraula			:	$('#id_input_text').val(),
+					tipus			:	'noun'
+				},
+				function(data, status) {
+					// alert('DOCUMENT XML : ' + data.children[0].innerHTML);
+					if (status != 'success') {
+						alert('Error de transacció');
+					} else {
+
+						var newline = String.fromCharCode(13, 10);
+
+						var strvar = '[["media","mean",,,10],[,,,"mn"]]';
+						eval("var res = " + data + ";");
+
+						$('#id_textarea_res').val("first_trans = " + res[0][0][0] + newline);
+
+						if (res[1]) {
+
+							for (var q = 0; q < res[1].length; q++) {
+
+								$('#id_textarea_res').val($('#id_textarea_res').val() + "type[" + q + "] -> " + res[1][q][0] + newline);
+								for (var t = 0; t < res[1][q][1].length; t++) {
+									$('#id_textarea_res').val($('#id_textarea_res').val() + "    word[" + t + "] -> " + res[1][q][1][t] + newline);
+								}
+							}
+						}
+
+						// $('#id_textarea_res').text(data);
+						// $('body').prepend('ok');
+
+
+					}
+				}
+			);
+		}
+
+
+	</script>
+</head>
+
+<body style="width: 100%; height: 100%; overflow: hidden;">
+
+	<h1> Google translate CURL hack </h1>
+	<input type="text" id="id_input_text" style="width:400px;" value="mean"/>
+	<button id="id_button_get" 		onclick="ini_trans();"> Get translation </button>
+
+	<br/>
+
+	<textarea id="id_textarea_res" rows="10" style="margin-top:10px; width:1000px; height:600px;"></textarea>
+
+</body>
+</html>
