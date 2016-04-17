@@ -38,8 +38,9 @@
 
     curl_close($ch);
 
+	if (strlen($tipus) != 4) $tipus = "xxxx";
 	// echo utf8_decode($output);
-	echo $output;
+	echo $tipus.$output;
 
 	// parse_str($output2);
 

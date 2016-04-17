@@ -22,7 +22,7 @@
 		function ini_trans() {
 			$.post("gtrans_hook.php",
 				{ 	paraula			:	$('#id_input_text').val(),
-					tipus			:	'noun'
+					tipus			:	$('#id_input_tipus').val()
 				},
 				function(data, status) {
 					// alert('DOCUMENT XML : ' + data.children[0].innerHTML);
@@ -32,18 +32,24 @@
 
 						var newline = String.fromCharCode(13, 10);
 
-						var strvar = '[["media","mean",,,10],[,,,"mn"]]';
-						eval("var res = " + data + ";");
+						var tipus = data.slice(0,4);
+						if (tipus == 'adj.') tipus = 'adjective';
+						eval("var res = " + data.slice(4) + ";");
+						var ori_word = res[0][0][1];
 
 						$('#id_textarea_res').val("first_trans = " + res[0][0][0] + newline);
+						$('#id_textarea_res').val($('#id_textarea_res').val() + "type input = " + tipus + newline);
 
 						if (res[1]) {
 
 							for (var q = 0; q < res[1].length; q++) {
-
-								$('#id_textarea_res').val($('#id_textarea_res').val() + "type[" + q + "] -> " + res[1][q][0] + newline);
-								for (var t = 0; t < res[1][q][1].length; t++) {
-									$('#id_textarea_res').val($('#id_textarea_res').val() + "    word[" + t + "] -> " + res[1][q][1][t] + newline);
+								if (res[1][q][0] == tipus || tipus == 'xxxx') {
+									$('#id_textarea_res').val($('#id_textarea_res').val() + "type[" + q + "] -> " + res[1][q][0] + newline);
+									for (var t = 0; t < res[1][q][1].length; t++) {
+										var premium = '';
+										if (res[1][q][2][t][1][0] == ori_word) premium = '*';
+										$('#id_textarea_res').val($('#id_textarea_res').val() + "    word[" + t + "] -> " + premium + res[1][q][1][t] + newline);
+									}
 								}
 							}
 						}
@@ -65,6 +71,7 @@
 
 	<h1> Google translate CURL hack </h1>
 	<input type="text" id="id_input_text" style="width:400px;" value="mean"/>
+	<input type="text" id="id_input_tipus" style="width:80px;" value=""/>
 	<button id="id_button_get" 		onclick="ini_trans();"> Get translation </button>
 
 	<br/>

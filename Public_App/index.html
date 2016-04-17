@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"> 
+  <head>
+   <title></title>
+
+    <link href="css/bootstrap.css" rel="stylesheet"> <!-- pulls in the main bootstrap content we need -->
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  
+  <body>
+      
+      <nav class="navbar navbar-default">
+          <!-- start container -->
+          <div class="container-fluid"> 
+        
+            <!-- start collapsed navbar -->
+            <div class="navbar-header"> 
+                <button type="button" 
+                        class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#main_navbar"
+                        aria-expanded="false">menu</button>
+            </div> <!-- end collapsed navbar -->
+            
+            <!-- start uncollapsed navbar -->
+            <div class="collapse navbar-collapse" id="main_navbar"> 
+              <ul class="nav navbar-nav">
+                  <li class="active"><a href="index.html">Home</a></li>
+                  <li><a href="about.html">About</a></li>
+              </ul>
+            </div> <!-- end uncollapsed navbar -->
+              
+          </div> <!-- end container -->
+      </nav>
+      
+      <div class="container">
+          <h1>Task list</h1>
+          <ol class="breadcrumb">
+              <li><a href="index.html">Home</a></li>
+          </ol>          
+          
+          <p>Select a task from the list:</p>
+          <ul>
+              <li><a href="task.html">Task 1</a></li>
+              <li><a href="task.html">Task 2</a></li>
+              <li><a href="task.html">Task 3</a></li>
+              <li><a href="task.html">Task 4</a></li>
+              <li><a href="task.html">Task 5</a></li>
+              <li><a href="task.html">Task 6</a></li>
+          </ul>
+          
+          
+      </div>
+  
+    <script src="js/jquery.min.js"></script> <!-- jquery libraries -->
+    <script src="js/bootstrap.min.js"></script> <!-- bootsrap libraries -->
+
+  </body>
+</html>

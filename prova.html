@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<!--    <script src="JS/lib/jquery.js"></script>-->
+<!--    <script src="JS/lib/angular.js"></script>-->
+<!--    <script src="JS/lib/angular-route.js"></script>-->
+<!--    <script src="JS/lib/angular-css.js"></script>-->
+<!--    <script data-main="scripts/main" src="scripts/require.js"></script>-->
+
+	<script>
+        
+        var app = (function() {
+            // Mètodes i variables privades globals de l'aplicació
+            var _version = 1;
+            var _author = 'Joel Barba';
+            var _max_id_car = 0;
+
+            return {    // Mètodes i variables públics de la aplicació
+                get_app_version : function() { return _version; },
+                get_app_author  : function() { return _author; },
+                app_state       : 'ini',
+
+                class_person : function(name_ini, age_ini, nif_ini) {
+                    // Mètodes i variables privades de la classe class_person
+                    var _age = age_ini;
+                    var _nif = nif_ini;
+                    var _add_year = function () { _age++; }
+
+                    return {    // Mètodes i variables públiques de la classe class_person
+                        name    : name_ini,    
+                        setAge  : function(new_age)  { _age = new_age; },
+                        getAge  : function() { return _age;  },
+                        addYear : function() { _add_year(); }
+                    };
+                },
+
+                class_car : function(model_ini, marca_ini) {
+                    // Mètodes i variables privades de la classe class_car
+                    _max_id_car++;
+                    var _id = _max_id_car;
+
+                    return {    // Mètodes i variables públiques de la classe class_car
+                        model   : model_ini,
+                        marca   : marca_ini,
+                        getId   : function() { return _id;  }
+                    };
+                }
+            };            
+        }());
+        
+
+
+        
+        
+        $(document).ready(function() {
+
+            console.log( 'Autor = ' + app.get_app_author() + ', versió = ' + app.get_app_version() );
+            var cotxe1 = app.class_car('Ibiza', 'Seat');
+            var cotxe2 = app.class_car('Golf', 'Wolfwagen');
+
+            cotxe1.model = 'Leon';
+            console.log( 'Id:' + cotxe1.getId() );
+            console.log( 'Id:' + cotxe2.getId() );
+
+            var person3 = new app.class_person('Joel', 20, '53453');    // person3.name = 'Joel', getAge = 20
+            person3.name = 'Senyor';  // person3.name = 'Senyor'
+            person3.setAge(30);       // person3.getAge = 30
+            person3.addYear();        // person3.getAge = 31
+
+            var person4 = new app.class_person('Mire', 30, '3242');     // person4.name = 'Mire', getAge = 30
+            person4.name = 'Senyora'; // person4.name = 'Senyora'
+            person4.setAge(10);       // person4.getAge = 10
+            person4.addYear();        // person4.getAge = 11
+
+            console.log( 'person3: name=' + person3.name + ', age=' + person3.getAge() );
+            console.log( 'person4: name=' + person4.name + ', age=' + person4.getAge() );
+                
+        });
+	</script>
+
+	<style>
+	</style>
+</head>
+
+<body>
+    <h1>My app</h1>
+</body>
+</html>

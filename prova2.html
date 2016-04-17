@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<!--    <script src="JS/lib/jquery.js"></script>-->
+<!--    <script src="JS/lib/angular.js"></script>-->
+<!--    <script src="JS/lib/angular-route.js"></script>-->
+<!--    <script src="JS/lib/angular-css.js"></script>-->
+<!--    <script data-main="scripts/main" src="scripts/require.js"></script>-->
+
+	<script>
+        
+
+        
+        
+$(document).ready(function() {
+
+    var inputString = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+    var width = 7;
+    
+    var res = '';
+    
+    for (var i = 0; i < inputString.length; i++) {
+        var start_win = i - width;
+        if (start_win < 0) start_win = 0;
+        var w = inputString.substring(start_win, i);
+        
+        console.log('i['+ i + ']=' + inputString.substr(i, 1) + ', w['+ i + ']=' + w);
+        
+        var found = ''; max_len = 0; fix_ind = 0;
+        for (var len = 1; len <= w.length; len++) {
+            var s = inputString.substr(i, len);
+//            console.log('s[' + len + ']=' + s);
+            for (var startIndex = 0; startIndex <= w.length - len; startIndex++) {
+                if (s == w.substr(startIndex, len)) {
+                    console.log('start_win: ' + start_win + ', s[' + len + ']=' + s + ' === startIndex:' + startIndex + ', w.substr(startIndex, len)=' + w.substr(startIndex, len) + ' -- MATCH (' + startIndex + ', ' + len + ')' )
+                    if (len >= max_len) { max_len = len; fix_ind = startIndex + start_win; }
+                } else {
+                    console.log('s[' + len + ']=' + s + ' === t:' + startIndex + ', w.substr(startIndex, len)=' + w.substr(startIndex, len))
+                }
+            }
+        }
+        if (max_len == 0) {
+            res += inputString.substr(i, 1);            
+        } else {
+            res += '(' + fix_ind + ',' + max_len + ')';
+            i += (max_len - 1);
+        }
+        
+        console.log ('res = ' + res);
+        console.log ('');
+//        res = ab(2,1)c(4,3)d(8,3)c(12,3)
+//              ab(0,1)c(0,3)d(3,3)c(3,3)
+//                ab(0,1)c(0,3)d(4,3)c(8,3)
+//        ok    ab(0,1)c(0,3)d(4,3)c(8,3)
+    }
+    
+    
+                
+});
+	</script>
+
+	<style>
+	</style>
+</head>
+
+<body>
+    <h1>My app</h1>
+</body>
+</html>

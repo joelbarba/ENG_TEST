@@ -1,0 +1,173 @@
+<html ng-app="Module_Main">
+  <head>
+
+    <title>Cataleg de pelis</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="main_styles.css">
+
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/lib/angular.js"></script>
+    <script src="js/lib/angular-css.js"></script>
+    <script src="js/app.js"></script>
+<!--    <script src="js/lib/angular-route.js"></script> -->
+<!--    <script src="js/routes.js"></script>-->
+
+    <script src="bootstrap/js/bootstrap.js"></script>
+<!--    <script data-main="scripts/main" src="js/lib/require.js"></script> -->
+
+
+  </head>
+
+  <body ng-controller="CTRL_Main as C0">
+
+    <br/>$rootScope.var5 = {{var5}}
+    <br/>$scope.var1 = {{ var1 }}
+    <br/>this / C0.var2 = {{ C0.var2 }}
+
+
+    <div ng-controller="CTRL_1 as C1">
+
+      <br/>$scope.var1 = {{ var1 }}
+      <br/>$rootScope.var5 = {{ var5 }}
+      <br/>$scope.var3 = {{ var3 }}
+      <br/>this / C1.var4 = {{ C1.var4 }}  
+      <br/>this / C0.var2 = {{ C0.var2 }} 
+
+      <button ng-click="C1.fun2()">CLICK C1</button>
+
+    </div>
+
+    <button ng-click="C0.fun1()">CLICK C0</button>
+
+
+    <ul>
+      <li ng-repeat="word in C0.word_list"> {{ word }} </li>
+    </ul>
+
+<!--
+  	<div id="id_div_inici" class="div_pantalla" style="display: none;">
+  		<h1 id="id_titol_joc">Loading................</h1>
+  		<input id="start_button" type="button" value="START!" style="font-size: 30px; padding:15px;" disabled="disabled">
+          <br>
+          <p>
+            <select id="id_select_list" onchange="$('.id_link_edit_list').attr('href', 'https://docs.google.com/spreadsheets/d/' + $('#id_select_list').val() + '/edit?usp=sharing');">
+              <option value="1P6iBJLoZIujfvm3PF5Ilxebv4-WE4xouktizLaZ7Y7M" tot_ans="4908" tot_row="2">Useful words (ENG -&gt; ESP)</option>
+              <option value="1uF8lSH2YHDEtMN_jxpke0f9oU8yDfXpR4Ai4TQb-gi0" tot_ans="51" tot_row="3">Uncommon words (ENG -&gt; ESP)</option>
+              <option value="1CEoo7iQWQ5KScJwBwqVcA6RInN3aQCB3pz49y6DaXVk" tot_ans="82" tot_row="4">Verb1 + Verb2 list</option>
+              <option value="1sYngRoeVqWe-z2GZwA8zxRapzIAuBB6iZ0ZiYGq76nw" tot_ans="18" tot_row="5">Verb1 + Verb2 examples</option>
+              <option value="1vzekIlUkGKLFRSklL7SDf5OclYV5wwUboisc5cGDjBk" tot_ans="4" tot_row="6">Phrasal verbs (ENG -&gt; ESP)</option>
+              <option value="1irFirgnqe2WbvfAcs9ZnUqtIlONNzRRdsTI4nXSp4mc" tot_ans="41" tot_row="7">Phrasal verbs meaning</option>
+              <option value="1CtrsnzhZqOtXhIAY5Y9m8G1W6k4ZEoj-LdKY9TCUB_w" tot_ans="24" tot_row="8">Useful sentences          </option>
+              <option value="" tot_ans="0" tot_row="9">---------------------------</option>
+              <option value="1CtjzLcXd3BjzPY4YX_82IPjgPGYxQkRSLfCtlWNDrvw" tot_ans="6781" tot_row="10">Useful words (ESP -&gt; ENG)</option>
+            </select>
+    		    <a style="margin-left:50px" class="id_link_edit_list" href="https://docs.google.com/spreadsheets/d/1P6iBJLoZIujfvm3PF5Ilxebv4-WE4xouktizLaZ7Y7M/edit?usp=sharing" target="_blank"> Edit list </a>
+          </p>
+  	</div>
+
+    
+
+    
+    <div id="id_div_joc" class="div_pantalla" style="width: 100%; height: 100%;">
+
+  		<div style="
+  				width: 95%; height: 40px;
+  				padding: 15px;
+  				font-size: 20px;
+  				display: flex;
+  				flex-flow: column wrap;
+  				align-content: space-between;
+  				">
+  			<div>
+  				<p id="id_scores">
+  					<span style="margin-left: 0px;"></span>
+  					<span style="margin-left: 30px; color: blue;">Attempts: 0</span>
+                      <span style="margin-left: 30px; color: red;">Errors: 0</span>
+  					<span style="margin-left: 30px; color: green;"></span>
+  					<span style="margin-left: 30px; color: green;">Answers: 11909</span>
+  				</p>
+  			</div>
+  			<div>            
+                <p id="id_game_buttons">
+                  <button style="font-size: 20px; margin-right: 20px;" onclick="finalitzar_partida();"> Go back index </button>
+                  <button style="font-size: 20px; margin-right: 20px;" onclick="finalitzar_partida(); carregar_llista();"> Reload list</button>
+                  <button style="font-size: 20px; margin-right: 20px;" onclick="window.open('https://docs.google.com/spreadsheets/d/' + $('#id_select_list').val() + '/edit?usp=sharing', '_blank');"> Edit list</button>
+                </p>
+  			</div>
+              
+  		</div>
+
+  		<div style="
+  				width: 95%; height: 625px;
+  				padding: 15px;
+  				display: flex;
+  				flex-flow: column wrap;
+  				align-items: stretch;
+  				align-content: space-between;
+  				">
+  			<div style="width: 35%; height: 100%; padding: 10px; border: 1px solid black; overflow: auto;">
+  				<table id="id_word_list">
+  					<thead><tr>
+              <th style="width:  30px;">id</th>
+              <th style="width: 170px;">word</th>
+              <th style="width:  40px;">type</th>
+              <th style="width:  30px;">att</th>
+              <th style="width:  30px;">ok</th>
+              <th style="width:  30px;">rok</th>
+              <th style="width:  30px;">skip</th>
+              <th style="width:  30px;">sco</th>
+              <th style="width:  30px;">mng</th>
+            </tr></thead>
+
+  					<tbody>
+              <tr style="border: 3px solid yellow;"> 
+                <td style="text-align: center; background-color: rgb(255, 255, 0);">1</td>
+                <td style="text-align: left; padding-left: 8px;">leap</td>
+                <td style="text-align: center;">V</td>
+                <td style="text-align: center;">7</td>
+                <td style="text-align: center;">5</td>
+                <td style="text-align: center;">5</td>
+                <td style="text-align: center;">62</td>
+                <td style="text-align: center;">-0.2</td>
+                <td style="padding: 0px; text-align: center;">
+                  <button class="edit_word_button" onclick="fun_edit_word('leap',343,'saltar, brincar');">edit</button>
+                </td>
+              </tr>
+            </tbody>
+  				</table>
+  			</div>
+
+  			<div style="width: 60%; height: 100%; margin: 10px;">
+  				<div id="id_div_question" style="font-size: 40px; width: 80%; margin-left: 30px;">
+  					<p id="id_word">1 - leap</p>
+  					<p id="id_kind_word" style="font-size: 16px; color: #00AA00;">1 - V</p>
+  				</div>
+
+  				<div id="id_div_respostes" style="padding: 10px; font-size: 25px; width:80%; margin-left: 30px;">
+  					<input type="text" id="id_resposta" onkeydown="answer_key_pres(event);" style="width: 300px; font-size: 25px; background-color: rgb(255, 255, 255);"> <br>
+
+  					<input type="button" value="Next" onclick="answer_skip()" style="width: 65px; height: 35px;">
+  					<input type="button" value="Help" onclick="answer_help()" disabled="true" style="width: 65px; height: 35px; margin-left: 120px;">
+  					<input type="button" value="?" onclick="answer_question()" disabled="true" style="width: 35px; height: 35px;">
+  				</div>
+  			</div>
+
+  		</div>
+
+  	</div>
+
+    <div class="block result-display" id="results">
+      <div class="hidden" id="error-message">
+        Verify that you have permission to access this folder and that the specified folder ID (if any) is correct.
+      </div>
+    </div>
+    
+
+-->
+
+  </body>
+
+</html>

@@ -1,0 +1,67 @@
+
+  .result-display {
+  margin-left: 15px;
+  font-size: 125%;
+  }
+  
+  .error {
+  color: #FF0000;
+  }
+  
+  .hidden {
+  display: none;
+  }
+  
+  body {
+  font-family: Verdana;
+  background-color: #d0e4fe;
+  }
+  
+  .div_pantalla {
+  display			: flex;
+  flex-flow		: column wrap;
+  align-items		: center;
+  align-content	: center;
+  }
+  
+  .opcio {
+  background-color: #e4fed0;
+  padding			: 12px;
+  width			: 90%;
+  border: solid 3px #d0e4fe;
+  }
+  
+  .opcio_sel {
+  
+  cursor 			: pointer;
+  border: solid 3px #888888;
+  }
+  
+  .opcio_error {
+  background-color: #ee5555;
+  border: solid 3px #ee2222;
+  }
+  
+  .opcio_ok {
+  background-color: #55cc55;
+  border: solid 3px #33ff33;
+  }
+  
+  table {
+  border-collapse: collapse;
+  background-color: rgb(170, 210, 255);
+  color: #333333;
+  font-size: 10px;
+  }
+  table, th, td { border: 1px solid black; }
+  th { background-color: rgb(50, 150, 255); }
+  td { padding: 2px; }
+  
+  .sw { color: red; }
+
+  .edit_word_button {
+    height: 14px;
+    font-size: 9px;
+    padding: 0px;
+    width: 29px;
+  }

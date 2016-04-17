@@ -27,8 +27,13 @@
 	<script type="text/javascript">
 
 		var paraules = [
-			'hanging in there'
+			'table','tail','take' // ,'talk','tall','taste','tax','teaching','technology','tendency'
 		];
+
+		paraules2 = [
+			['verb','leak'],['verb','lean'],['verb','learn'],['verb','teach'],['verb','leave'],['verb','lend'],['verb','lease'],['verb','level'],['verb','license']
+		];
+
 		var num_res = 0;
 
 
@@ -46,17 +51,18 @@
 
 		function translate_list() {
 
-			num_res = 0;
-			for (var t = 0; t < paraules.length; t++) {
-				ini_trans(paraules[t]);
+			num_res = 1;
+			for (var t = 0; t < paraules2.length; t++) {
+				ini_trans(paraules2[t][1], paraules2[t][0]);
 			}
 
 		}
 
 
-		function ini_trans(word) {
+		function ini_trans(word, tipu) {
 			$.post("gtrans_hook.php",
-				{ 	paraula			:	word.replace(/ /g, "+")
+				{ 	paraula			:	word.replace(/ /g, "+"),
+					tipus			:	tipu
 				},
 				function(data, status) {
 					// alert('DOCUMENT XML : ' + data.children[0].innerHTML);
@@ -66,8 +72,9 @@
 
 						var newline = String.fromCharCode(13, 10);
 
-						var strvar = '[["media","mean",,,10],[,,,"mn"]]';
-						eval("var res = " + data + ";");
+						var tipus = data.slice(0,4);
+						if (tipus == 'adj.') tipus = 'adjective';
+						eval("var res = " + data.slice(4) + ";");
 
 						var ori_word = res[0][0][1];
 						var tra_word = res[0][0][0];
@@ -76,25 +83,41 @@
 
 							for (var q = 0; q < res[1].length; q++) {
 
-								var translat = '';
-								var kind_word = '';
+								if (res[1][q][0] == tipus || tipus == 'xxxx') {	// Filtrar tipus no seleccionats
+									var translat = '';
+									var kind_word = res[1][q][0];;
 
-								// $('#id_textarea_res').val($('#id_textarea_res').val() + "type[" + q + "] -> " + res[1][q][0] + newline);
-								var coma = '';
-								for (var t = 0; t < res[1][q][1].length; t++) {
-									translat += coma + res[1][q][1][t];
-									kind_word = res[1][q][0];
-									coma = ',';
+									// $('#id_textarea_res').val($('#id_textarea_res').val() + "type[" + q + "] -> " + res[1][q][0] + newline);
+									var coma = '';
+									for (var t = 0; t < res[1][q][2].length; t++) {
+										// Comprovar si es traducció premium (bidireccional)
+										if (res[1][q][2][t][0] == tra_word) {
+											translat += coma + tra_word + '**';
+											coma = ',';
+										}
+									}
+									for (var t = 0; t < res[1][q][2].length; t++) {
+										// Comprovar si es traducció premium (bidireccional)
+										if (res[1][q][2][t][1][0] == ori_word) {
+											translat += coma + res[1][q][2][t][0] + '*';
+											coma = ',';
+										}
+									}
+									for (var t = 0; t < res[1][q][2].length; t++) {
+										if (res[1][q][2][t][1][0] != ori_word)	translat += coma + res[1][q][2][t][0];
+									}
+
+
+									// Afegir paraula per cada tipus
+
+									$('#id_tbody1').append("<tr>")
+										.append('<td>' + (num_res++) + '</td>')
+										.append('<td>' + ori_word 	+ '</td>')
+										.append('<td>' + tra_word 	+ '</td>')
+										.append('<td>' + kind_word 	+ '</td>')
+										.append('<td>' + translat 	+ '</td>')
+										.append('</tr>');
 								}
-
-								// Afegir paraula per cada tipus
-								$('#id_tbody1').append("<tr>")
-									.append('<td>' + (num_res++) + '</td>')
-									.append('<td>' + ori_word 	+ '</td>')
-									.append('<td>' + tra_word 	+ '</td>')
-									.append('<td>' + kind_word 	+ '</td>')
-									.append('<td>' + translat 	+ '</td>')
-									.append('</tr>');
 							}
 						} else {
 							var translat = tra_word;
@@ -135,20 +158,6 @@
 			<tr>
 		</thead>
 		<tbody id="id_tbody1">
-			<tr>
-				<td>1</td>
-				<td>mean</td>
-				<td>media</td>
-				<td>noun</td>
-				<td>media,medio,promedio,término medio</td>
-			<tr>
-			<tr>
-				<td>2</td>
-				<td>proponents</td>
-				<td>proponentes</td>
-				<td>verb</td>
-				<td>proponente,defensor,autor</td>
-			<tr>
 		</tbody>
 	</table>
 
