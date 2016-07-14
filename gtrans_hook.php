@@ -3,7 +3,9 @@
 	// $paraula = "hello";
 	$paraula = $_REQUEST[paraula];
 	$tipus = $_REQUEST[tipus];	// noun / verb / adjective / adverb
-	$url_des = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=es&hl=en&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&ie=UTF-8&oe=UTF-8&source=bh&ssel=0&tsel=0&kc=1&tk=398444.12423&q=".$paraula;
+	// $url_des = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=es&hl=en&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&dt=at&ie=UTF-8&oe=UTF-8&source=bh&ssel=0&tsel=0&kc=1&tk=398444.12423&q=".$paraula;
+    $url_des = "https://translate.google.com/translate_a/single?client=t&sl=en&tl=es&hl=ca&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&ie=UTF-8&oe=UTF-8&source=btn&srcrom=1&ssel=5&tsel=5&kc=0&tk=100732.504200&q=";
+    $url_des = $url_des.$paraula;
 	// $url_des = "https://translate.google.com/gen204?lexicon=dt=cm,sl=en,tl=es,hl=en,q=dog,e=show,md=e,rw=ne,bd=ne,cm=e";
 	// $url_des = "https://translate.google.com/?source=gtx#en/es/dog";
 	// $url_des = "https://www.google.es";
